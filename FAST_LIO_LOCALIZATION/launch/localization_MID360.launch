@@ -27,9 +27,21 @@
     <node pkg="pcl_ros" type="pcd_to_pointcloud" name="map_publishe" output="screen"
 		  args="$(arg map) 5 _frame_id:=map cloud_pcd:=map" />
 
-
 	<group if="$(arg rviz)">
 	<node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find fast_lio_localization)/rviz_cfg/localization.rviz" />
 	</group>
+
+	<!-- build 2d map -->
+	<!-- <include file="$(find fast_lio)/launch/Pointcloud2Map.launch">
+	</include> -->
+
+	<!-- load 2d map -->
+	<arg name="2dmap" default="scans.yaml" />
+	<node name = "map_server" pkg = "map_server" type = "map_server" args="$(find fast_lio)/PCD/scans.yaml /map:=prior_map"/>
+
+	<!-- pointscloud2 to laserscans -->
+	<include file="$(find fast_lio_localization)/launch/PointsCloud2toLaserscan.launch">
+	</include>
+
 
 </launch>

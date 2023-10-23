@@ -18,4 +18,8 @@
 	<node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find fast_lio)/rviz_cfg/loam_livox.rviz" />
 	</group>
 
+	<!-- Include child launch file -->
+	<!-- <include file="$(find fast_lio)/launch/Point2Map.launch">
+	</include> -->
+
 </launch>

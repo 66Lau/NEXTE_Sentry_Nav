@@ -116,3 +116,59 @@ rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0
 [实时显示octomap](https://blog.csdn.net/lovely_yoshino/article/details/105275396?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169804282616800213031883%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169804282616800213031883&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-105275396-null-null.142^v96^pc_search_result_base9&utm_term=%E7%82%B9%E4%BA%91%E5%9C%B0%E5%9B%BE%E7%94%9F%E6%88%90%E6%A0%85%E6%A0%BC%E5%9C%B0%E5%9B%BE&spm=1018.2226.3001.4187)  
 [Octomap_server使用](https://blog.csdn.net/sru_alo/article/details/85083030?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169804282616800213031883%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169804282616800213031883&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-85083030-null-null.142^v96^pc_search_result_base9&utm_term=%E7%82%B9%E4%BA%91%E5%9C%B0%E5%9B%BE%E7%94%9F%E6%88%90%E6%A0%85%E6%A0%BC%E5%9C%B0%E5%9B%BE&spm=1018.2226.3001.4187)  
 栅格地图读取-使用map_server
+```bash
+sudo apt install ros-noetic-map-server
+# 打开一个终端.(ctrl+alt+T)输入下面指令安装octomap.
+sudo apt-get install ros-noetic-octomap-ros #安装octomap
+sudo apt-get install ros-noetic-octomap-msgs
+sudo apt-get install ros-noetic-octomap-server
+ 
+# 安装octomap 在 rviz 中的插件
+sudo apt-get install ros-noetic-octomap-rviz-plugins
+# install move_base
+sudo apt-get install ros-noetic-move-base
+```
+
+```bash
+# pcd2pgm offline
+# modify run.launch file in pcd2pgm such as the pcd file pasth etc.
+roslaunch pcd2pgm run.launch
+```
+
+```bash
+# save the pgm map file
+rosrun map_server map_saver map:=/<Map Topic> -f PATH_TO_YOUR_FILE/mymap
+#eg:
+rosrun map_server map_saver map:=/projected_map -f /home/rm/ws_sentry/src/FAST_LIO/PCD/scans
+```
+
+*2023-10-23 update:*  
+  1. We add a new launch file in `FAST_LIO` called `Pointcloud2Map.launch`, which will update the 2D mapping at same time, if you publish the PointCloud2 from FAST_LIO
+  2. Then ,We merged the `SLAM`, `relocalization`, `Transfering 2D map online`,in only one launch file ==> localization_MID360
+
+### 3. Pointcloud2 to Lasercan
+The output format of 3d point clouds of FAST_LIO is `/pointclouds2`. However, the input format of `move_base` is `/Laserscan`. Therefore, it is necessary to transfrom the `/pointclouds2` to `/Laserscan`.
+
+The package we are using is [pointcloud_to_laserscan](https://github.com/ros-perception/pointcloud_to_laserscan.git).
+
+blog about `pointcloud_to_laserscan` : [pointcloud_to_laserscan_blog](https://blog.csdn.net/qq_43176116/article/details/86095482?ops_request_misc=&request_id=&biz_id=102&utm_term=pointcloud2%20to%20laserscan&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-2-86095482.142^v96^pc_search_result_base2&spm=1018.2226.3001.4187)
+
+The launch file is `PointsCloud2toLaserscan.launch`
+
+
+### 4. MOVE_BASE
+The code was in `Sentry_Nav`
+
+  1. build the map  
+     - modify the `localization_MID360.launch` file, and enable the code `build 2d map`, and disenable the code `load 2d map` 
+     - `roslaunch roslaunch livox_ros_driver2 msg_MID360.launch`
+     - `roslaunch fast_lio_localization localization_MID360.launch`
+     - if the map is built up, `rosrun map_server map_saver map:=/projected_map -f /home/rm/ws_sentry/src/FAST_LIO/PCD/scans`, save the 2d map
+
+  2. navigation
+     - check the 2d map in PCD dir, especially the scans.yaml, the origin[x,y,z] can not be zero
+     - modify the `localization_MID360.launch` file, and enable the code `load 2d map`, and disenable the code `built 2d map`      
+     - `roslaunch roslaunch livox_ros_driver2 msg_MID360.launch`
+     - `roslaunch fast_lio_localization localization_MID360.launch`
+     - publish the initial pose by using `rviz` or `rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0`
+     - publish the goal point through `rviz`

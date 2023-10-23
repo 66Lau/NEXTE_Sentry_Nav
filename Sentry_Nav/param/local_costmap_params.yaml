@@ -1,0 +1,13 @@
+local_costmap:
+  global_frame: camera_init #里程计坐标系
+  robot_base_frame: body #机器人坐标系
+ 
+  update_frequency: 10.0 #代价地图更新频率
+  publish_frequency: 10.0 #代价地图的发布频率
+  transform_tolerance: 0.5 #等待坐标变换发布信息的超时时间
+ 
+  static_map: false  #不需要静态地图，可以提升导航效果
+  rolling_window: true #是否使用动态窗口，默认为false，在静态的全局地图中，地图不会变化
+  width: 3 # 局部地图宽度 单位是 m
+  height: 3 # 局部地图高度 单位是 m
+  resolution: 0.05 # 局部地图分辨率 单位是 m，一般与静态地图分辨率保持一致
