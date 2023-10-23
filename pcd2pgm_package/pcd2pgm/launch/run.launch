@@ -1,0 +1,24 @@
+<!-- -->
+<launch>
+<node pkg="pcd2pgm" name="pcd2pgm" type="pcd2pgm" output="screen">
+<!-- 存放pcd文件的路径-->
+<param name="file_directory" value= "/home/rm/PCD_file/PCD(305_10-20)/"/>
+<!-- pcd文件名称-->
+<param name="file_name" value= "scans" />
+<!-- 选取的范围　最小的高度-->
+<param name="thre_z_min" value= "0.1" />
+<!-- 选取的范围　最大的高度-->
+<param name="thre_z_max" value= "1.5" />
+<!--0 选取高度范围内的，１选取高度范围外的-->
+<param name="flag_pass_through" value= "0" />
+<!-- 半径滤波的半径-->
+<param name="thre_radius" value= "0.5" />
+<!-- 半径滤波的要求点数个数-->
+<param name="thres_point_count" value= "10" />
+<!-- 存储的栅格map的分辨率-->
+<param name="map_resolution" value= "0.05" />
+<!-- 转换后发布的二维地图的topic，默认使用map即可，可使用map_server保存-->
+<param name="map_topic_name" value= "map" />
+</node>
+
+</launch>
