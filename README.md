@@ -88,17 +88,17 @@ roslaunch fast_lio mapping_mid360.launch
 [重定位fast-lio-localization](https://github.com/HViktorTsoi/FAST_LIO_LOCALIZATION)
 
 
-We modified the open-source project [FAST_LIO_LOCALIZATION](https://github.com/davidakhihiero/FAST_LIO_LOCALIZATION-ROS-NOETIC), including: 
+我们修改了开源的重定位项目 [FAST_LIO_LOCALIZATION](https://github.com/davidakhihiero/FAST_LIO_LOCALIZATION-ROS-NOETIC), 包括以下文件: 
 - `global_localization.py`  
-  - `#!/usr/bin/python3` in 1 line, switch from python2 to python3
-  - `*import _thread*`, the thread are renamed as _thread in python3
-  - In the newest version of Open3D, `o3d.registration`should be replaced by  `o3d.pipelines.registration`
-  - `FOV = 6.28` in 222 line should be changed to your lidar Fov scale. The scale of MID360 is 360, so 2*pi (rad)
+  - `#!/usr/bin/python3` 此处我们修改解释器为python3
+  - `*import _thread*`, python3中使用thread会报错，已经改名为_thread
+  - 在open3d的最新版本, `o3d.registration`应被替换为 `o3d.pipelines.registration`
+  - `FOV = 6.28` in 222 line 应该改成你使用的雷达的扫描范围. The scale of MID360 is 360, so 2*pi (rad)
   - FOV_FAR = 30, switch to you lidar max distance
 
 - `localization_MID360.launch`
-  - It calls the `fastlio_mapping` from the newest fast_lio2 pkg which fit with the MID360
-  - modified to `args="$(arg map) 5 _frame_id:=map cloud_pcd:=map" />` in line 28
+  - 我们修改了 `fastlio_mapping` 可执行文件的所属包，我们直接使用fast_lio2中的mid360的launch文件启动
+  - 使用 `args="$(arg map) 5 _frame_id:=map cloud_pcd:=map" />` in line 28，而不是/map
   - modified to `<arg name="map" default="/home/rm/ws_sentry/src/FAST_LIO/PCD/scans.pcd" />`, that used the PCD file in FAST_LIO pkg, If you have your own PCD file, you can change it to your own PCD file path.
 
 Usage:
@@ -110,3 +110,9 @@ rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0
 # the origin point of the PCD map is the location where you launch the fast_lio mapping
 # Therefore, You better launch the relocalization in the location where you start the mapping. In this way, you can just publish 0 0 0 0 0 0 to estimate the initail pose
 ```
+
+### 2. 地图转换（PCD to Octomap）
+[离线将PCD地图转换为pgm栅格地图](https://blog.csdn.net/Draonly/article/details/124537069?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165207936116781435426048%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=165207936116781435426048&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-6-124537069-null-null.142%5Ev9%5Econtrol,157%5Ev4%5Econtrol&utm_term=pcd%E5%9C%B0%E5%9B%BE%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%A0%85%E6%A0%BC%E5%9C%B0%E5%9B%BE&spm=1018.2226.3001.4187)  
+[实时显示octomap](https://blog.csdn.net/lovely_yoshino/article/details/105275396?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169804282616800213031883%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169804282616800213031883&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-105275396-null-null.142^v96^pc_search_result_base9&utm_term=%E7%82%B9%E4%BA%91%E5%9C%B0%E5%9B%BE%E7%94%9F%E6%88%90%E6%A0%85%E6%A0%BC%E5%9C%B0%E5%9B%BE&spm=1018.2226.3001.4187)  
+[Octomap_server使用](https://blog.csdn.net/sru_alo/article/details/85083030?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169804282616800213031883%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169804282616800213031883&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-85083030-null-null.142^v96^pc_search_result_base9&utm_term=%E7%82%B9%E4%BA%91%E5%9C%B0%E5%9B%BE%E7%94%9F%E6%88%90%E6%A0%85%E6%A0%BC%E5%9C%B0%E5%9B%BE&spm=1018.2226.3001.4187)  
+栅格地图读取-使用map_server
