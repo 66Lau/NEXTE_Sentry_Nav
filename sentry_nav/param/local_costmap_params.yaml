@@ -4,7 +4,7 @@ local_costmap:
  
   update_frequency: 10.0 #代价地图更新频率
   publish_frequency: 10.0 #代价地图的发布频率
-  transform_tolerance: 1 #等待坐标变换发布信息的超时时间
+  transform_tolerance: 2 #等待坐标变换发布信息的超时时间
  
   static_map: false  #不需要静态地图，可以提升导航效果
   rolling_window: true #是否使用动态窗口，默认为false，在静态的全局地图中，地图不会变化

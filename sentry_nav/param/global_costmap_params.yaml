@@ -5,6 +5,6 @@ global_costmap:
  
   update_frequency: 1.0 #代价地图更新频率
   publish_frequency: 1.0 #代价地图的发布频率
-  transform_tolerance: 0.5 #等待坐标变换发布信息的超时时间
+  transform_tolerance: 2 #等待坐标变换发布信息的超时时间
  
   static_map: true # 是否使用一个地图或者地图服务器来初始化全局代价地图，如果不使用静态地图，这个参数为false.
