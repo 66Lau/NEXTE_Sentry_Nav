@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>Sentry_Nav</name>
+  <name>sentry_nav</name>
   <version>0.0.0</version>
-  <description>The Sentry_Nav package</description>
+  <description>The sentry_nav package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
@@ -19,7 +19,7 @@
   <!-- Url tags are optional, but multiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/Sentry_Nav</url> -->
+  <!-- <url type="website">http://wiki.ros.org/sentry_nav</url> -->
 
 
   <!-- Author tags are optional, multiple are allowed, one per tag -->
