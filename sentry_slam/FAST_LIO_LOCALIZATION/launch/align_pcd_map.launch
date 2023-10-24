@@ -1,6 +1,6 @@
 <launch>
 <!-- Launch file for Livox AVIA LiDAR -->
-	<arg name="map" default="/home/rm/ws_sentry/src/FAST_LIO/PCD/scans.pcd" />
+	<arg name="map" default="$(find fast_lio)/PCD/scans.pcd" />
     <node pkg="pcl_ros" type="pcd_to_pointcloud" name="map_publishe" output="screen"
 		  args="$(arg map) 5 _frame_id:=map cloud_pcd:=map" />
 

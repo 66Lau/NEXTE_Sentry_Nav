@@ -16,7 +16,7 @@
 
 
 	<!-- <arg name="map" default="/home/rm/ws_sentry/src/FAST_LIO/PCD(305_10-20)/scans.pcd" /> -->
-	<arg name="map" default="/home/rm/ws_sentry/src/FAST_LIO/PCD/scans.pcd" />
+	<arg name="map" default="$(find fast_lio)/PCD/scans.pcd" />
 	<!-- loalization-->
     <node pkg="fast_lio_localization" type="global_localization.py" name="global_localization" output="screen" />
 

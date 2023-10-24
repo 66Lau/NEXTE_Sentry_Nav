@@ -17,7 +17,7 @@
 
 
 	<!-- <arg name="map" default="/home/rm/ws_sentry/src/FAST_LIO/PCD(305_10-20)/scans.pcd" /> -->
-	<arg name="map" default="/home/rm/ws_sentry/src/FAST_LIO/PCD/scans.pcd" />
+	<arg name="map" default="$(find fast_lio)/PCD/scans.pcd" />
 	<!-- loalization-->
     <node pkg="fast_lio_localization" type="global_localization.py" name="global_localization" output="screen" />
 
@@ -31,10 +31,6 @@
 	<group if="$(arg rviz)">
 	<node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find fast_lio_localization)/rviz_cfg/localization.rviz" />
 	</group>
-
-	<!-- build 2d map -->
-	<!-- <include file="$(find fast_lio)/launch/Pointcloud2Map.launch">
-	</include> -->
 
 	<!-- load 2d map -->
 	<arg name="2dmap" default="scans.yaml" />

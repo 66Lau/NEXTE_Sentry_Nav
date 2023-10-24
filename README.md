@@ -163,12 +163,13 @@ The code was in `Sentry_Nav`
 
      - `roslaunch roslaunch livox_ros_driver2 msg_MID360.launch`
      - `roslaunch fast_lio_localization sentry_build_map.launch`
-     - if the map is built up, `rosrun map_server map_saver map:=/projected_map -f /home/rm/ws_sentry/src/FAST_LIO/PCD/scans`, save the 2d map
+     - if the map is built up, `rosrun map_server map_saver map:=/projected_map -f /home/rm/ws_sentry/src/sentry_slam/FAST_LIO/PCD/scans`, save the 2d map
 
   2. navigation
      - check the 2d map in PCD dir, especially the scans.yaml, the origin[x,y,yaw] can not be nan   
      - `roslaunch roslaunch livox_ros_driver2 msg_MID360.launch`
      - `roslaunch fast_lio_localization sentry_localize.launch`
      - publish the initial pose by using `rviz` or `rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0`
+     - `roslaunch roslaunch sentry_nav sentry_movebase.launch `
      - publish the goal point through `rviz`
      - using `rqt` to check the cmd_vel, in ros, the read axis delegate the x axis, the green one is the y axis, the blue one is the z axis. Besides, when the `angular velocity` bigger than `0`, it means that the robot should `rotate anticlockwise`, and when the angular velocity smaller than 0, it means that the robot should rotate clockwise.

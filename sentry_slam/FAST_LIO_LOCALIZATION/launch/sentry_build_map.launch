@@ -14,7 +14,7 @@
 	<param name="runtime_pos_log_enable" type="bool" value="0" />
     <node pkg="fast_lio" type="fastlio_mapping" name="laserMapping" output="screen" /> 
 
-	<arg name="map" default="/home/rm/ws_sentry/src/FAST_LIO/PCD/scans.pcd" />
+	<arg name="map" default="$(find fast_lio)/PCD/scans.pcd" />
 	<!-- loalization-->
     <node pkg="fast_lio_localization" type="global_localization.py" name="global_localization" output="screen" />
 
@@ -32,10 +32,6 @@
 	<!-- build 2d map -->
 	<include file="$(find fast_lio)/launch/Pointcloud2Map.launch">
 	</include>
-
-	<!-- load 2d map -->
-	<!-- <arg name="2dmap" default="scans.yaml" />
-	<node name = "map_server" pkg = "map_server" type = "map_server" args="$(find fast_lio)/PCD/scans.yaml /map:=prior_map"/> -->
 
 	<!-- pointscloud2 to laserscans -->
 	<include file="$(find fast_lio_localization)/launch/PointsCloud2toLaserscan.launch">
