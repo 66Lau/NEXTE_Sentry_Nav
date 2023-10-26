@@ -170,6 +170,11 @@ The code was in `Sentry_Nav`
      - `roslaunch roslaunch livox_ros_driver2 msg_MID360.launch`
      - `roslaunch fast_lio_localization sentry_localize.launch`
      - publish the initial pose by using `rviz` or `rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0`
-     - `roslaunch roslaunch sentry_nav sentry_movebase.launch `
+     - `roslaunch sentry_nav sentry_movebase.launch `
      - publish the goal point through `rviz`
      - using `rqt` to check the cmd_vel, in ros, the read axis delegate the x axis, the green one is the y axis, the blue one is the z axis. Besides, when the `angular velocity` bigger than `0`, it means that the robot should `rotate anticlockwise`, and when the angular velocity smaller than 0, it means that the robot should rotate clockwise.
+
+
+## Serial and Decision
+
+### 1. Serial
