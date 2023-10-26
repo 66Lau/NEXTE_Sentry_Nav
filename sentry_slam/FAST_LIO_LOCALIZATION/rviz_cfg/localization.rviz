@@ -16,6 +16,7 @@ Panels:
         - /Odometry1/Odometry1/Covariance1/Orientation1
         - /Localization1/localization1
         - /Localization1/localization1/Shape1
+        - /Axes2
         - /MarkerArray1/Namespaces1
       Splitter Ratio: 0.6382352709770203
     Tree Height: 777
@@ -329,7 +330,7 @@ Visualization Manager:
       Length: 0.699999988079071
       Name: Axes
       Radius: 0.10000000149011612
-      Reference Frame: <Fixed Frame>
+      Reference Frame: body
       Show Trail: false
       Value: true
     - Alpha: 0
@@ -466,7 +467,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 9.710126876831055
+      Distance: 26.92694854736328
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -482,9 +483,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8697962760925293
+      Pitch: 1.4897958040237427
       Target Frame: body
-      Yaw: 1.7717657089233398
+      Yaw: 1.5867658853530884
     Saved: ~
 Window Geometry:
   Displays:

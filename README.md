@@ -184,10 +184,22 @@ The code was in `Sentry_Nav`
 ## Serial and Decision
 
 ### 1. Serial
+[Blog about Serial in ros](https://blog.csdn.net/qq_43525704/article/details/103363414?ops_request_misc=&request_id=&biz_id=102&utm_term=ros%20chuan%20kou&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-103363414.nonecase&spm=1018.2226.3001.4187)
 
-     - using `rqt` to check the cmd_vel, in ros, 坐标系红色轴代表x轴, 绿色轴代表y轴, 蓝色轴代表z轴. Besides, when the `angular velocity` bigger than `0`, it means that the robot should `rotate anticlockwise`, and when the angular velocity smaller than 0, it means that the robot should rotate clockwise.
+Setting serial port permissions
+```bash
+sudo usermod -aG dialout $USER
+```
 
-### 7. F&Q
+#### 1. suscribe the `cmd_vel`
+
+#### 2. `rosrun sentry_serial sentry_send`
+
+#### 3. 
+
+  
+
+## F&Q
 1. 如何确保栅格地图和三维点云地图处于完全重合的状态
     - 采用时候fast_lio构建三维点云地图的同时，将点云数据用octomap压至二维地图,同时构建的地图可以确保relocalize在三维点云中的机器人位姿可以完全映射到二位栅格地图中使用
 
