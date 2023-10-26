@@ -189,17 +189,32 @@ The code was in `Sentry_Nav`
 Setting serial port permissions
 ```bash
 sudo usermod -aG dialout $USER
+# USRE is your username
+# eg:
+sudo usermod -aG dialout lau
 ```
 
 #### 1. suscribe the `cmd_vel`
 
-#### 2. `rosrun sentry_serial sentry_send`
+#### 2. use serial.write to send data
 
-#### 3. 
+#### 3. For detail please see /sentry_comm/sentry_serial/src/serial_send.cpp
 
-  
+```bash 
+rosrun sentry_serial sentry_send <serial port path>
+
+#eg:
+
+rosrun sentry_serial sentry_send /dev/ttyACM0
+#the default seriial port path is /dev/ttyACM0, if you do not offer the param
+
+```
 
 ## F&Q
 1. 如何确保栅格地图和三维点云地图处于完全重合的状态
     - 采用时候fast_lio构建三维点云地图的同时，将点云数据用octomap压至二维地图,同时构建的地图可以确保relocalize在三维点云中的机器人位姿可以完全映射到二位栅格地图中使用
+
+## TODO
+- Add a new frame of body in 2d map, which means the frame's `z` is zero
+  - have finish the body mapping in coordinate from 3d to 2d, the posture still need to be modified. It should be that only the yaw of the body could change.
 

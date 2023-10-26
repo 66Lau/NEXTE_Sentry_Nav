@@ -11,7 +11,7 @@
 
 // char speed_data[22]={0};   //要发给串口的数据
 serial::Serial sentry_ser; //声明串口对象
-uint8_t data_len = 57;
+uint8_t data_len = 49;
 
 
 
@@ -28,7 +28,7 @@ union Serial_Package
         double   angular_z;
 
     };
-    uint8_t Send_Buffer[57];
+    uint8_t Send_Buffer[49];
 };
 
 // 接收到订阅的消息后，会进入消息回调函数
