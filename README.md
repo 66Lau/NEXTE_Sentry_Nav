@@ -144,9 +144,11 @@ rosrun map_server map_saver map:=/projected_map -f /home/rm/ws_sentry/src/FAST_L
 
 *2023-10-23 update:*  
   1. We add a new launch file in `FAST_LIO` called `Pointcloud2Map.launch`, which will update the 2D mapping at same time, if you publish the PointCloud2 from FAST_LIO
-  2. Then ,We merged the `SLAM`, `relocalization`, `Transfering 2D map online`,in only one launch file ==> localization_MID360
+  2. 然后我们综合了 `SLAM`, `relocalization`, `实时构建栅格地图`三个功能,in only one launch file ==> localization_MID360
 
 ### 3. Pointcloud2 to Lasercan
+move_base框架下，我们构建局部代价地图时，需要输入当前的laserscan的实时二位点云
+
 The output format of 3d point clouds of FAST_LIO is `/pointclouds2`. However, the input format of `move_base` is `/Laserscan`. Therefore, it is necessary to transfrom the `/pointclouds2` to `/Laserscan`.
 
 The package we are using is [pointcloud_to_laserscan](https://github.com/ros-perception/pointcloud_to_laserscan.git).
@@ -173,3 +175,7 @@ The code was in `Sentry_Nav`
      - `roslaunch roslaunch sentry_nav sentry_movebase.launch `
      - publish the goal point through `rviz`
      - using `rqt` to check the cmd_vel, in ros, the read axis delegate the x axis, the green one is the y axis, the blue one is the z axis. Besides, when the `angular velocity` bigger than `0`, it means that the robot should `rotate anticlockwise`, and when the angular velocity smaller than 0, it means that the robot should rotate clockwise.
+
+### 7. F&Q
+1. 如何确保栅格地图和三维点云地图处于完全重合的状态
+  - 采用时候fast_lio构建三维点云地图的同时，将点云数据用octomap压至二维地图
