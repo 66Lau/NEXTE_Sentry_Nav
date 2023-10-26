@@ -1,4 +1,4 @@
-# SLAM AND NAVIGATION IN 2023
+# SLAM AND NAVIGATION IN 2024
 
 ## Hardware info
 - [MID360 offical web](https://www.livoxtech.com/cn/mid-360)
@@ -146,6 +146,9 @@ rosrun map_server map_saver map:=/projected_map -f /home/rm/ws_sentry/src/FAST_L
   1. We add a new launch file in `FAST_LIO` called `Pointcloud2Map.launch`, which will update the 2D mapping at same time, if you publish the PointCloud2 from FAST_LIO
   2. 然后我们综合了 `SLAM`, `relocalization`, `实时构建栅格地图`三个功能,in only one launch file ==> localization_MID360
 
+*2023-10-26 update:*
+  1. 由于更改了整个框架，所以现在使用sentry_localize.launch这个文件，但localization_MID360.launch这个文件仍然可用
+
 ### 3. Pointcloud2 to Lasercan
 move_base框架下，我们构建局部代价地图时，需要输入当前的laserscan的实时二位点云
 
@@ -174,8 +177,8 @@ The code was in `Sentry_Nav`
      - publish the initial pose by using `rviz` or `rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0`
      - `roslaunch roslaunch sentry_nav sentry_movebase.launch `
      - publish the goal point through `rviz`
-     - using `rqt` to check the cmd_vel, in ros, the read axis delegate the x axis, the green one is the y axis, the blue one is the z axis. Besides, when the `angular velocity` bigger than `0`, it means that the robot should `rotate anticlockwise`, and when the angular velocity smaller than 0, it means that the robot should rotate clockwise.
+     - using `rqt` to check the cmd_vel, in ros, 坐标系红色轴代表x轴, 绿色轴代表y轴, 蓝色轴代表z轴. Besides, when the `angular velocity` bigger than `0`, it means that the robot should `rotate anticlockwise`, and when the angular velocity smaller than 0, it means that the robot should rotate clockwise.
 
 ### 7. F&Q
 1. 如何确保栅格地图和三维点云地图处于完全重合的状态
-  - 采用时候fast_lio构建三维点云地图的同时，将点云数据用octomap压至二维地图
+    - 采用时候fast_lio构建三维点云地图的同时，将点云数据用octomap压至二维地图,同时构建的地图可以确保relocalize在三维点云中的机器人位姿可以完全映射到二位栅格地图中使用
