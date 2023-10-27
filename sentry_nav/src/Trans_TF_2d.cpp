@@ -34,7 +34,7 @@ int main(int argc, char** argv){
     float robot_oriation_w=transform_listener.getRotation().getW();
 
     transform_broadcaster.setOrigin( tf::Vector3(robot_pose_x, robot_pose_y, 0.0) );
-    transform_broadcaster.setRotation( tf::Quaternion(robot_oriation_x, robot_oriation_y, robot_oriation_z, robot_oriation_w) );
+    transform_broadcaster.setRotation( tf::Quaternion(0, 0, robot_oriation_z, robot_oriation_w) );
     broadcaster.sendTransform(tf::StampedTransform(transform_broadcaster, ros::Time::now(), "map", "body_2d"));
     
 

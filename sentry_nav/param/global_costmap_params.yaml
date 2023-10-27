@@ -1,6 +1,6 @@
 global_costmap:
   global_frame: map #地图坐标系
-  robot_base_frame: body #机器人坐标系
+  robot_base_frame: body_2d #机器人坐标系
   # 以此实现坐标变换
  
   update_frequency: 1.0 #代价地图更新频率
