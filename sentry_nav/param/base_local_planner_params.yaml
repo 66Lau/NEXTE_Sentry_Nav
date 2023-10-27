@@ -3,13 +3,15 @@ TrajectoryPlannerROS:
 # Robot Configuration Parameters
   max_vel_x: 0.5 # X 方向最大速度
   min_vel_x: 0.1 # X 方向最小速速
+  max_vel_y: 0.5 # X 方向最小速速
+  min_vel_y: 0.1 # X 方向最小速速
  
   max_vel_theta:  1.0 # 
   min_vel_theta: -1.0
   min_in_place_vel_theta: 1.0
  
   acc_lim_x: 1.0 # X 加速限制
-  acc_lim_y: 0.0 # Y 加速限制
+  acc_lim_y: 1.0 # Y 加速限制
   acc_lim_theta: 0.6 # 角速度加速限制
  
 # Goal Tolerance Parameters，目标公差
@@ -23,5 +25,77 @@ TrajectoryPlannerROS:
 # Forward Simulation Parameters，前进模拟参数
   sim_time: 2
   vx_samples: 18
+  vx_samples: 10
   vtheta_samples: 20
   sim_granularity: 0.05
+
+
+  # =================== segement ===============
+# base_local_planner: "dwa_local_planner/DWAPlannerROS"
+
+# # controller_frequency: 10.0      # 20.0
+# # controller_patience:  15.0      # 15.0
+
+# DWAPlannerROS:
+
+#   holonomic_robot: true
+
+#   # Tolerances                  Defaults
+#   yaw_goal_tolerance: 0.4      # 0.05
+#   xy_goal_tolerance:  0.5      # 0.10
+#   # latch_xy_goal_tolerance: true # false
+
+#   # Forward simulation          Defaults
+#   use_dwa: true                 # true
+#   sim_time: 2.0                 # 1.7
+#   sim_granularity: 0.025        # 0.025
+#   angular_sim_granularity: 0.017 # 0.10 (1 degree = 0.017 rad)
+#   vx_samples: 10                 # 3
+#   vy_samples: 10                # 10
+#   vth_samples: 20               # 20
+
+
+
+#   # Scoring                     Defaults
+#   # meter_scoring: false          # Is this even taken into account?
+#   # path_distance_bias: 1.00      # 32.0
+#   # goal_distance_bias: 0.10      # 24.0
+#   # occdist_scale: 0.01           # 0.01
+#   # forward_point_distance: 0.325 # 0.325
+#   # stop_time_buffer: 0.20        # 0.20
+#   # scaling_speed: 0.25           # 0.25
+#   # max_scaling_factor: 0.20      # 0.20
+#   # heading_lookahead: 0.325
+#   # heading_scoring_timestep: 0.8
+#   # heading_scoring: true         # Is this even taken into account?
+#   # penalize_negative_x: false    # Is this even taken into account?
+
+#   # Acceleration and velocity limits
+
+#   # acc_limit_trans: 1.0
+#   acc_lim_x: 1.0                # 2.5
+#   acc_lim_y: 1.0                # 2.5
+#   acc_lim_theta: 1.0            # 3.2
+
+#   # max_trans_vel: 0.5
+#   # min_trans_vel: 0.1
+#   max_vel_x: +0.3
+#   min_vel_x: -0.3
+#   max_vel_y: +0.3
+#   min_vel_y: -0.3
+
+#   max_rot_vel: 1.0
+#   min_rot_vel: 0.4
+
+#   # Other                       Defaults
+#   # oscillation_reset_dist: 0.05  # 0.05
+#   # oscillation_reset_angle: 0.20 # 0.20
+#   # prune_plan: false             # true
+#   # trans_stopped_vel: 0.1        # 0.1
+#   # rot_stopped_vel: 0.1          # 0.1
+#   # publish_cost_grid_pc: true    # false
+
+
+#   publish_traj_pc: true
+#   publish_cost_grid_pc: true
+#   global_frame_id: camera_init
