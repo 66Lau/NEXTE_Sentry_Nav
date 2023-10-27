@@ -45,10 +45,10 @@ void callback(const geometry_msgs::Twist& cmd_vel)
     serial_package.linear_y = cmd_vel.linear.y;
     serial_package.linear_z = cmd_vel.linear.z;
 
-    serial_package.angular_y = cmd_vel.angular.x;
-    serial_package.angular_z = cmd_vel.angular.y;
-    serial_package.angular_x = cmd_vel.angular.z;
-    serial_package.angular_x = 0xB5;
+    serial_package.angular_y = cmd_vel.angular.z;
+    serial_package.angular_z = cmd_vel.angular.x;
+    serial_package.angular_x = cmd_vel.angular.y;
+
 
     // serial_package.angular_x = 0xB5;
     // serial_package.angular_y = 0xC5;

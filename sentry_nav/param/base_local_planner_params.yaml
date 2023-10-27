@@ -13,15 +13,15 @@ TrajectoryPlannerROS:
   acc_lim_theta: 0.6 # 角速度加速限制
  
 # Goal Tolerance Parameters，目标公差
-  xy_goal_tolerance: 0.10
-  yaw_goal_tolerance: 0.05
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: 0.1
  
 # Differential-drive robot configuration
 # 是否是全向移动机器人
   holonomic_robot: true
  
 # Forward Simulation Parameters，前进模拟参数
-  sim_time: 0.8
+  sim_time: 2
   vx_samples: 18
   vtheta_samples: 20
   sim_granularity: 0.05
