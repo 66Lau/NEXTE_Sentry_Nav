@@ -1,5 +1,6 @@
 local_costmap:
   global_frame: camera_init #里程计坐标系
+  # global_frame: camera_init #里程计坐标系
   robot_base_frame: body_2d #机器人坐标系
  
   update_frequency: 10.0 #代价地图更新频率
