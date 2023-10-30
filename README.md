@@ -269,7 +269,7 @@ output: `body_2d` frame，即机器人在二维栅格地图坐标系下的位姿
   - 如果你是第一次使用ros，这个信息需要重点关注，因为输出的就是xyz方向的线速度和绕xyz轴旋转的角速度，有了这个消息就可以用控制机器人导航了，检查cmd_vel时，建议使用rqt中的波形图，检查是否正确
 - 发布 global path 和local_path
 - 发布 cost map, 即代价地图
-<div align="center"><img src="doc/sentry_navigation_1.gif" width=90% /></div>
+<div align="center"><img src="doc/sentry_navigation_1.gif" width=60% /></div>
 <div align="center">这里面栅格地图上的黑色像素块（障碍物或者地图边界）上面有一层绿色的小方格，那个就是实时的二维点云</div>
 <br>
 
