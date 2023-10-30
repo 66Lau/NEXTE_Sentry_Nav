@@ -1,6 +1,6 @@
 # SLAM AND NAVIGATION IN RM2024
 ## Introduction
-本文原本只是自己在拿到mid360后，开始进行开发过程的一些问题和学习的记录。毕竟实物和仿真还是有很多不同，且由于碰到的问题也比较多，READEME也越来越详细，所以就干脆整合起来，做成了一篇使用于mid360的搭建入门的导航系统全流程分享。里面用到的都是主流的开源的框架（部分文件做了修改和mid360适配），fast_lio, move_base等等，或许能帮助到第一次开发机器人实物导航的朋友。
+本文原本只是自己在拿到mid360后，开始进行开发过程的一些问题和学习的记录。毕竟实物和仿真还是有很多不同，且由于碰到的问题也比较多，READEME也越来越详细，所以就干脆整合起来，做成了一篇使用mid360的搭建入门的导航系统全流程分享。里面用到的都是主流的开源的框架（部分文件做了修改和mid360适配），fast_lio, move_base等等，或许能帮助到第一次开发机器人实物导航的朋友。
 
 本文的代码地址：https://github.com/66Lau/NEXTE_Sentry_Nav
 
@@ -16,21 +16,25 @@
 - [MID360 offical web官网](https://www.livoxtech.com/cn/mid-360)
 - [Quick-start-doc|MID360快速开始手册](https://terra-1-g.djicdn.com/65c028cd298f4669a7f0e40e50ba1131/Mid360/Livox_Mid-360_Quick_Start_Guide_multi.pdf)
 - [user-manual|MID360用户手册](https://terra-1-g.djicdn.com/65c028cd298f4669a7f0e40e50ba1131/Mid360/20230727/Livox_Mid-360_User_Manual_CHS.pdf)
-- [Livox_sdk2](https://github.com/Livox-SDK/Livox-SDK2)
-- [livox_ros_driver2](https://github.com/Livox-SDK/livox_ros_driver2)
+- [Livox_sdk2源地址](https://github.com/Livox-SDK/Livox-SDK2)
+- [livox_ros_driver2源地址](https://github.com/Livox-SDK/livox_ros_driver2)
 
-- [livox ros driver2安装](https://blog.csdn.net/qq_29912325/article/details/130269367?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169734904416800182711632%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169734904416800182711632&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-130269367-null-null.142^v96^pc_search_result_base9&utm_term=livox_sdk2&spm=1018.2226.3001.4187)
+- [livox ros driver2安装博客](https://blog.csdn.net/qq_29912325/article/details/130269367?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169734904416800182711632%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169734904416800182711632&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-130269367-null-null.142^v96^pc_search_result_base9&utm_term=livox_sdk2&spm=1018.2226.3001.4187)
 
-- [虚拟机和mid360桥接](https://blog.csdn.net/sinat_39110395/article/details/123545816?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169735401816800227447255%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169735401816800227447255&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-123545816-null-null.142^v96^pc_search_result_base9&utm_term=%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%9E%E6%8E%A5%E9%9B%B7%E8%BE%BE&spm=1018.2226.3001.4187)
-- [关于在ROS1下用MID360配置FAST-LIO2备忘](https://blog.csdn.net/qq_52784762/article/details/132736322?ops_request_misc=&request_id=&biz_id=102&utm_term=fast%20lio%E9%85%8D%E7%BD%AE&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-1-132736322.142^v96^pc_search_result_base9&spm=1018.2226.3001.4187)
+- [虚拟机和mid360桥接博客](https://blog.csdn.net/sinat_39110395/article/details/123545816?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169735401816800227447255%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169735401816800227447255&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-123545816-null-null.142^v96^pc_search_result_base9&utm_term=%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%9E%E6%8E%A5%E9%9B%B7%E8%BE%BE&spm=1018.2226.3001.4187)
+
 
 
 
 ## Livox和Fast-Lio配置流程
 1. 安装[Livox_sdk2](https://github.com/Livox-SDK/Livox-SDK2),readme有写相关过程，注意：要更改主机ip为192.168.1.50[ubuntu修改方法](https://blog.csdn.net/sinat_39110395/article/details/123545816?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169735401816800227447255%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169735401816800227447255&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-123545816-null-null.142^v96^pc_search_result_base9&utm_term=%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%9E%E6%8E%A5%E9%9B%B7%E8%BE%BE&spm=1018.2226.3001.4187)，本人雷达ip为192.168.1.180
-2. 安装[livox_ros_driver2](https://github.com/Livox-SDK/livox_ros_driver2),注意运行前要注意更改config里面的主机ip和雷达IP
-3. 配置fast-lio
-参考[FAST_LIO原地址](https://github.com/hku-mars/FAST_LIO)  [FAST-LIO配置中文博客](https://blog.csdn.net/qq_42108414/article/details/131530293?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169737102216800185825796%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169737102216800185825796&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-131530293-null-null.142^v96^pc_search_result_base9&utm_term=fast%20lio%E9%85%8D%E7%BD%AE&spm=1018.2226.3001.4187)更建议参考源地址的READEME
+2. 安装[livox_ros_driver2](https://github.com/Livox-SDK/livox_ros_driver2), readme有写相关过程， 注意运行前要注意更改config里面的主机ip和雷达IP
+3. 配置fast-lio  
+参考：  
+[FAST_LIO原地址](https://github.com/hku-mars/FAST_LIO)  
+[FAST-LIO配置中文博客](https://blog.csdn.net/qq_42108414/article/details/131530293?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169737102216800185825796%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169737102216800185825796&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-131530293-null-null.142^v96^pc_search_result_base9&utm_term=fast%20lio%E9%85%8D%E7%BD%AE&spm=1018.2226.3001.4187)  
+[关于在ROS1下用MID360配置FAST-LIO2备忘](https://blog.csdn.net/qq_52784762/article/details/132736322?ops_request_misc=&request_id=&biz_id=102&utm_term=fast%20lio%E9%85%8D%E7%BD%AE&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-1-132736322.142^v96^pc_search_result_base9&spm=1018.2226.3001.4187)  
+更建议参考源地址的READEME
 ```
 sudo apt install libeigen3-dev
 ```
@@ -162,10 +166,7 @@ rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0
     方式二：使用`octomap_server`功能包,离线将pcd转换成栅格地图，参考[octomap_server使用－－生成二维占据栅格地图和三维概率地图](https://blog.csdn.net/sru_alo/article/details/85083030?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169804282616800213031883%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169804282616800213031883&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-85083030-null-null.142^v96^pc_search_result_base9&utm_term=%E7%82%B9%E4%BA%91%E5%9C%B0%E5%9B%BE%E7%94%9F%E6%88%90%E6%A0%85%E6%A0%BC%E5%9C%B0%E5%9B%BE&spm=1018.2226.3001.4187)  
   2. 在fast_lio构建三维点云地图的同时，也实时构建2d的栅格地图
 
-
-
-[实时显示octomap](https://blog.csdn.net/lovely_yoshino/article/details/105275396?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169804282616800213031883%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169804282616800213031883&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-105275396-null-null.142^v96^pc_search_result_base9&utm_term=%E7%82%B9%E4%BA%91%E5%9C%B0%E5%9B%BE%E7%94%9F%E6%88%90%E6%A0%85%E6%A0%BC%E5%9C%B0%E5%9B%BE&spm=1018.2226.3001.4187)  
-
+本文的代码仓库里两种方式都有，常用的是第二种
 #### 配置：
 ```bash
 sudo apt install ros-noetic-map-server
@@ -178,6 +179,10 @@ sudo apt-get install ros-noetic-octomap-server
 sudo apt-get install ros-noetic-octomap-rviz-plugins
 # install move_base
 sudo apt-get install ros-noetic-move-base
+
+#如果使用方式一，还需将pcd2pgm拉到工作空间的src目录下编译
+#本文代码仓库已经包含了该仓库，再sentry_tools/pcd2pgm，如果直接使用本文代码仓库，则不需要再拉
+git clone https://github.com/Hinson-A/pcd2pgm_package.git
 ```
 #### 方式一实现
 ```bash
@@ -270,7 +275,7 @@ output: `body_2d` frame，即机器人在二维栅格地图坐标系下的位姿
 - 发布 global path 和local_path
 - 发布 cost map, 即代价地图
 <div align="center"><img src="doc/sentry_navigation_1.gif" width=60% /></div>
-<div align="center">这里面栅格地图上的黑色像素块（障碍物或者地图边界）上面有一层绿色的小方格，那个就是实时的二维点云</div>
+<div align="center">实机测试</div>
 <br>
 
 #### 具体实现
@@ -283,14 +288,16 @@ output: `body_2d` frame，即机器人在二维栅格地图坐标系下的位姿
      - `roslaunch fast_lio_localization sentry_build_map.launch`
      - 如果你认为当前构建的栅格地图还可以,运行 `rosrun map_server map_saver map:=/projected_map -f /home/rm/ws_sentry/src/sentry_slam/FAST_LIO/PCD/scans`, 来保存栅格地图，注意，三维点云的PCD是运行结束后自动保存到在launch file中指定的路径下的
   2. navigation 导航
-     - check the 2d map in PCD dir, especially the `scans.yaml`, make sure the `origin`[x,y,yaw] can not be nan. | 检查在fast_lio/PCD下中保存的2d地图`scans.yaml`,确保其中参数`origin`[x,y,yaw]不能是nan，如果yaw是nan的话，将其设置为0.
+     - check the 2d map in PCD dir, especially the `scans.yaml`, make sure the `origin`[x,y,yaw] can not be nan.   
+     检查在fast_lio/PCD下中保存的2d地图`scans.yaml`,确保其中参数`origin`[x,y,yaw]不能是nan，如果yaw是nan的话，将其设置为0.
      - `roslaunch roslaunch livox_ros_driver2 msg_MID360.launch`
      - `roslaunch fast_lio_localization sentry_localize.launch`
      - publish the initial pose by using `rviz` or `rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0`
      - `roslaunch sentry_nav sentry_movebase.launch `
-     - publish the goal point through `rviz`
+     - 发布目标点 `rviz` | publish the goal point through `rviz`
 
-     - using `rqt` to check the cmd_vel, in ros, the read axis delegate the x axis, the green one is the y axis, the blue one is the z axis. Besides, when the `angular velocity` bigger than `0`, it means that the robot should `rotate anticlockwise`, and when the angular velocity smaller than 0, it means that the robot should rotate clockwise.
+     - using `rqt` to check the cmd_vel, in ros, the red axis delegate the x axis, the green one is the y axis, the blue one is the z axis. Besides, when the `angular velocity` bigger than `0`, it means that the robot should `rotate anticlockwise`, and when the angular velocity smaller than 0, it means that the robot should rotate clockwise.
+     使用`rqt`来检查cmd_vel，在ros中，红轴代表x轴，绿色的是y轴，蓝色的是z轴。当角速度大于0时，表示机器人应“逆时针旋转”，当角速度小于0时，表示机器人应“顺时针旋转”。
 
 
 ## Serial and Decision
@@ -332,6 +339,29 @@ rosrun sentry_serial sentry_send /dev/ttyACM0
 正因为决策层是由机器人的使用需求决定的，而不同人的使用需求又大相径庭，此处只根据本项目的使用需求进行设计，即RoboMaster赛事的需求，仅供参考，若想使用至其他场景，请自行修改。
 
 搭建实物场地中，所以决策层TBD。
+
+## 运行命令
+本导航系统运行的最终的命令为:
+
+  1. build the map  构建地图
+```bash
+roslaunch roslaunch livox_ros_driver2 msg_MID360.launch
+roslaunch fast_lio_localization sentry_build_map.launch
+rosrun map_server map_saver map:=/projected_map -f /home/rm/ws_sentry/src/sentry_slam/FAST_LIO/PCD/scans
+```
+
+
+
+  2. navigation 导航
+```bash
+roslaunch roslaunch livox_ros_driver2 msg_MID360.launch
+roslaunch fast_lio_localization sentry_localize.launch
+# 用rviz发布初始位姿或者 `rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0`
+roslaunch sentry_nav sentry_movebase.launch
+# 用rviz发布目标点
+rosrun sentry_serial sentry_send /dev/ttyACM0
+```
+由于文件中不可避免的会出现一些绝对路径的信息，还有诸如dev/ttyACM0这样应取决于你的硬件设备的相关文件，所以直接运行大概率会出问题，一般出问题后仔细查看报错，修改相关文件即可（这里因人而异，本章中无法做到非常详尽的指导，有过ros和c++开发经验应该很快能自己解决）
 
 ## 后续优化或修改
   上面的内容可以作为导航系统的雏形，或者说是初学者的快速入门。得益于ROS不同功能包之间的良好的解耦，后续可以针对上面slam部分，避障部分，路径规划部分独立修改并优化，后续的优化或修改，可以参考以下内容：
