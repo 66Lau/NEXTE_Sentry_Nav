@@ -2,7 +2,7 @@
 <launch>
 <node pkg="pcd2pgm" name="pcd2pgm" type="pcd2pgm" output="screen">
 <!-- 存放pcd文件的路径-->
-<param name="file_directory" value= "/home/rm/PCD_file/PCD(305_10-20)/"/>
+<param name="file_directory" value= "$(find fast_lio)/PCD/"/>
 <!-- pcd文件名称-->
 <param name="file_name" value= "scans" />
 <!-- 选取的范围　最小的高度-->

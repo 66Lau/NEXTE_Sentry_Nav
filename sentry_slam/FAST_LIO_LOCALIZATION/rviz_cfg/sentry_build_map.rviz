@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /Grid1
-        - /mapping1
         - /mapping1/surround1
         - /mapping1/currPoints1
         - /mapping1/currPoints1/Autocompute Value Bounds1
@@ -64,15 +63,6 @@ Visualization Manager:
       Plane Cell Count: 10
       Reference Frame: body
       Value: true
-    - Alpha: 1
-      Class: rviz/Axes
-      Enabled: false
-      Length: 0.699999988079071
-      Name: Axes
-      Radius: 0.05999999865889549
-      Reference Frame: <Fixed Frame>
-      Show Trail: false
-      Value: false
     - Class: rviz/Group
       Displays:
         - Alpha: 1
@@ -325,15 +315,6 @@ Visualization Manager:
           Value: true
       Enabled: false
       Name: Localization
-    - Alpha: 1
-      Class: rviz/Axes
-      Enabled: true
-      Length: 0.699999988079071
-      Name: Axes
-      Radius: 0.10000000149011612
-      Reference Frame: <Fixed Frame>
-      Show Trail: false
-      Value: true
     - Alpha: 0
       Buffer Length: 2
       Class: rviz/Path
@@ -414,6 +395,33 @@ Visualization Manager:
       Unreliable: false
       Use Timestamp: false
       Value: true
+    - Alpha: 1
+      Class: rviz/Axes
+      Enabled: true
+      Length: 1
+      Name: Axes
+      Radius: 0.10000000149011612
+      Reference Frame: camera_init
+      Show Trail: false
+      Value: true
+    - Alpha: 1
+      Class: rviz/Axes
+      Enabled: true
+      Length: 0.699999988079071
+      Name: Axes
+      Radius: 0.05999999865889549
+      Reference Frame: body
+      Show Trail: false
+      Value: true
+    - Alpha: 1
+      Class: rviz/Axes
+      Enabled: true
+      Length: 0.699999988079071
+      Name: Axes
+      Radius: 0.10000000149011612
+      Reference Frame: map
+      Show Trail: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 0; 0; 0
@@ -442,7 +450,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 36.59513473510742
+      Distance: 7.506739616394043
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -458,9 +466,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.779796838760376
+      Pitch: 0.44479623436927795
       Target Frame: body
-      Yaw: 0.8267471790313721
+      Yaw: 1.4467493295669556
     Saved: ~
 Window Geometry:
   Displays:
