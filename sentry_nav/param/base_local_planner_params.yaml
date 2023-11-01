@@ -33,7 +33,7 @@
   # =================== segement ===============
 base_local_planner: "dwa_local_planner/DWAPlannerROS"
 
-# controller_frequency: 10.0      # 20.0
+controller_frequency: 15      # 20.0
 # controller_patience:  15.0      # 15.0
 
 DWAPlannerROS:
@@ -48,10 +48,10 @@ DWAPlannerROS:
   # Forward simulation          Defaults
   use_dwa: true                 # true
   sim_time: 1.0                 # 1.7
-  sim_granularity: 0.025        # 0.025
+  sim_granularity: 0.07       # 0.025
   angular_sim_granularity: 0.1 # 0.10 (1 degree = 0.017 rad)
-  vx_samples: 3                 # 3
-  vy_samples: 10                # 10
+  vx_samples: 15               # 3
+  vy_samples: 15               # 10
   vth_samples: 15               # 20
 
 
@@ -59,11 +59,11 @@ DWAPlannerROS:
   # Scoring                     Defaults
   # meter_scoring: false          # Is this even taken into account?
   # path_distance_bias: 1.00      # 32.0
-  # goal_distance_bias: 0.10      # 24.0
+  goal_distance_bias: 24     # 24.0
   # occdist_scale: 0.01           # 0.01
   # forward_point_distance: 0.325 # 0.325
   # stop_time_buffer: 0.20        # 0.20
-  # scaling_speed: 0.25           # 0.25
+  scaling_speed: 0.7           # 0.25
   # max_scaling_factor: 0.20      # 0.20
   # heading_lookahead: 0.325
   # heading_scoring_timestep: 0.8
@@ -72,18 +72,17 @@ DWAPlannerROS:
 
   # Acceleration and velocity limits
 
-  # acc_limit_trans: 1.0
-  # acc_lim_x: 1.0                # 2.5
-  # acc_lim_y: 1.0                # 2.5
+  acc_limit_trans: 100
+  acc_lim_x: 100.0                # 2.5
+  acc_lim_y: 100.0                # 2.5
   # acc_lim_theta: 1.0            # 3.2
 
-  # max_trans_vel: 0.5
-  # min_trans_vel: 0.1
-  max_vel_x: +0.8
-  min_vel_x: -0.8
-  max_vel_y: +0.8
-  min_vel_y: -0.8
-
+  max_trans_vel: 1
+  min_trans_vel: 0.4
+  max_vel_x: +1
+  min_vel_x: -1
+  max_vel_y: +1
+  min_vel_y: -1
   max_rot_vel: 1.0
   min_rot_vel: 0.4
 

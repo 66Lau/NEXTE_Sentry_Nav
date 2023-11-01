@@ -1,0 +1,14 @@
+    <launch>
+
+        <include file="$(find livox_ros_driver2)/launch_ROS1/msg_MID360.launch">
+        </include>
+        <include file="$(find fast_lio_localization)/launch/sentry_localize.launch">
+        </include>
+
+        <node pkg="fast_lio_localization" type="publish_initial_pose.py" name="publish_initial_pose" output="screen" 
+        args="0 0 0 0 0 0"/>
+
+        <include file="$(find sentry_nav)/launch/sentry_movebase.launch">
+        </include>
+
+    </launch>
