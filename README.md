@@ -371,8 +371,13 @@ rosrun sentry_serial sentry_send /dev/ttyACM0
 ### 2023-11-02 smooth the /cmd_vel, the output of the move_base, using ema formula.
 ```bash
 git clone https://github.com/seifEddy/velocity_smoother_ema.git
-```
 
+```
+the launch file of velocity_smoother_ema has been added to sentry_movebase.launch file
+### 2023-11-02 make a little bit change to sentrial_serial.
+- using rosparam for imparting the parameters
+- now suscribe to the `/smooth_cmd_cel` topic
+- add a launch file
 
 ## F&Q
 1. 如何确保栅格地图和三维点云地图处于完全重合的状态

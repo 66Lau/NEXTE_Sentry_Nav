@@ -1,35 +1,11 @@
 #include "ros/ros.h"  
+#include "serial_send.h"
 
 
-#include <serial/serial.h>  
-#include <std_msgs/String.h>  
 #include <sstream>  
 #include <geometry_msgs/Twist.h>
 #include <string>
 #include <iostream>
-
-
-// char speed_data[22]={0};   //要发给串口的数据
-serial::Serial sentry_ser; //声明串口对象
-uint8_t data_len = 49;
-
-
-
-union Serial_Package
-{
-    struct
-    {
-        uint8_t  header = 0xA5;
-        double  linear_x;
-        double  linear_y;
-        double   linear_z;
-        double   angular_x;
-        double   angular_y;
-        double   angular_z;
-
-    };
-    uint8_t Send_Buffer[49];
-};
 
 // 接收到订阅的消息后，会进入消息回调函数
 void callback(const geometry_msgs::Twist& cmd_vel)
@@ -49,11 +25,6 @@ void callback(const geometry_msgs::Twist& cmd_vel)
     serial_package.angular_z = cmd_vel.angular.x;
     serial_package.angular_x = cmd_vel.angular.y;
 
-
-    // serial_package.angular_x = 0xB5;
-    // serial_package.angular_y = 0xC5;
-    // serial_package.angular_z = 0xC5;
-
     sentry_ser.flush ();
     sentry_ser.write(serial_package.Send_Buffer,data_len);
     ROS_INFO("\nSend date finished!\n");
@@ -65,6 +36,7 @@ int main (int argc, char** argv){
     ros::init(argc, argv, "sentry_send");
 
     ros::NodeHandle n;
+    n.getParam("cmd_vel_topic", cmd_vel_topic);
     std::cout<<argv[1]<<std::endl;
     std::cout<<argc<<std::endl;
     try
@@ -96,7 +68,7 @@ int main (int argc, char** argv){
     ROS_INFO_STREAM("Init Finished!");
 
     // 创建一个Subscriber，订阅名为data_chatter的topic，注册回调函数chatterCallback 
-    ros::Subscriber sub = n.subscribe("/cmd_vel", 1000, callback); 
+    ros::Subscriber sub = n.subscribe(cmd_vel_topic, 1000, callback); 
 
     ros::spin();
 }
