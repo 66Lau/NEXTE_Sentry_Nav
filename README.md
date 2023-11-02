@@ -366,7 +366,12 @@ rosrun sentry_serial sentry_send /dev/ttyACM0
 ## 后续优化或修改
   上面的内容可以作为导航系统的雏形，或者说是初学者的快速入门。得益于ROS不同功能包之间的良好的解耦，后续可以针对上面slam部分，避障部分，路径规划部分独立修改并优化，后续的优化或修改，可以参考以下内容：
 
-  - 2023-10-28更换局部规划器为dwa，同时使cmd_vel输出全向移动机器人的y方向速度而不是使用默认的yaw
+### 2023-10-28 更换局部规划器为dwa，同时使cmd_vel输出全向移动机器人的y方向速度而不是使用默认的yaw
+
+### 2023-11-02 smooth the /cmd_vel, the output of the move_base, using ema formula.
+```bash
+git clone https://github.com/seifEddy/velocity_smoother_ema.git
+```
 
 
 ## F&Q

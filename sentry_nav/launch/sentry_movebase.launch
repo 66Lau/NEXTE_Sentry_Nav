@@ -10,5 +10,6 @@
     <node pkg="sentry_nav" type="trans_tf_2d" name="trans_tF_2d" />
     <!-- <node pkg="sentry_nav" type="trans_tf_2d_odom" name="trans_tF_2d_odom" />
     <node pkg="sentry_nav" type="trans_odom_2d" name="trans_odom_2d" /> -->
-
+	<include file="$(find velocity_smoother_ema)/launch/velocity_smoother_ema.launch">
+	</include>
 </launch>
