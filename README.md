@@ -303,6 +303,7 @@ output: `body_2d` frame，即机器人在二维栅格地图坐标系下的位姿
 - why the robot can not reach the limit of velocity I 
   - [Reference1](https://answers.ros.org/question/12066/move_basebase_local_planner-maximum-velocity/)
   - [Referebce2](https://answers.ros.org/question/297226/velocity-doesnt-increase-when-using-move-base-navigation/)
+  - [Reference3](https://answers.ros.org/question/267293/navigation-cant-reach-max-speed/)
 
 ## Serial and Decision
 即机器人控制的决策层和通讯，这里采用的是串口
