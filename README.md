@@ -299,6 +299,10 @@ output: `body_2d` frame，即机器人在二维栅格地图坐标系下的位姿
      - using `rqt` to check the cmd_vel, in ros, the red axis delegate the x axis, the green one is the y axis, the blue one is the z axis. Besides, when the `angular velocity` bigger than `0`, it means that the robot should `rotate anticlockwise`, and when the angular velocity smaller than 0, it means that the robot should rotate clockwise.
      使用`rqt`来检查cmd_vel，在ros中，红轴代表x轴，绿色的是y轴，蓝色的是z轴。当角速度大于0时，表示机器人应“逆时针旋转”，当角速度小于0时，表示机器人应“顺时针旋转”。
 
+### Adjusting param
+- why the robot can not reach the limit of velocity I 
+  - [Reference1](https://answers.ros.org/question/12066/move_basebase_local_planner-maximum-velocity/)
+  - [Referebce2](https://answers.ros.org/question/297226/velocity-doesnt-increase-when-using-move-base-navigation/)
 
 ## Serial and Decision
 即机器人控制的决策层和通讯，这里采用的是串口

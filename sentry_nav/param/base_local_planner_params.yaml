@@ -37,7 +37,7 @@ controller_frequency: 15      # 20.0
 # controller_patience:  15.0      # 15.0
 
 DWAPlannerROS:
-
+  odom_topic: Odometry
   holonomic_robot: true
 
   # Tolerances                  Defaults
