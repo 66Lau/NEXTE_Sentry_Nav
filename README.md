@@ -373,16 +373,17 @@ rosrun sentry_serial sentry_send /dev/ttyACM0
 
 ### 2023-10-28 更换局部规划器为dwa，同时使cmd_vel输出全向移动机器人的y方向速度而不是使用默认的yaw
 
-### 2023-11-02 smooth the /cmd_vel, the output of the move_base, using ema formula.
+### 2023-11-02 使用ema滤波算法平滑move_base的输出/cmd_vel.
+由于move_base的输出/cmd_vel经常有速度的突变，且控制频率不高的条件下，会导致机器人运动卡顿，为了平滑机器人的运动，我们使用`velocity_smoother_ema`包(基于ema算法)对于输出的速度进行平滑处理，此处也可以使用`yocs_velocity_smoother`.
 ```bash
 git clone https://github.com/seifEddy/velocity_smoother_ema.git
 
 ```
-the launch file of velocity_smoother_ema has been added to sentry_movebase.launch file
+velocity_smoother_ema的启动已经添加至sentry_movebase.launch file，并且现在串口订阅的是滤波后的速度即`/smooth_cmd_cel`
 ### 2023-11-02 make a little bit change to sentrial_serial.
-- using rosparam for imparting the parameters
-- now suscribe to the `/smooth_cmd_cel` topic
-- add a launch file
+- 使用rosparam传递参数
+- 现在串口订阅 `/smooth_cmd_cel` 话题
+- 增加了一个launch file并设定了参数
 
 ## F&Q
 1. 如何确保栅格地图和三维点云地图处于完全重合的状态
