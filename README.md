@@ -392,6 +392,7 @@ velocity_smoother_ema的启动已经添加至sentry_movebase.launch file，并�
 <div align="center"><img src="doc/Filter-11-10.png" width=100% /></div>
 <div align="center">EMA FILTER</div>
 <br>
+
 ### 2023-11-02 make a little bit change to sentrial_serial.
 - 使用rosparam传递参数
 - 现在串口订阅 `/smooth_cmd_cel` 话题
