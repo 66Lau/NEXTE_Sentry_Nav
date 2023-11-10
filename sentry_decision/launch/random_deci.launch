@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="sentry_decision" type="random_deci" name="sentry_send">
+    </node>
+
+
+</launch>

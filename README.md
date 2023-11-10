@@ -367,6 +367,15 @@ roslaunch sentry_nav sentry_movebase.launch
 rosrun sentry_serial sentry_send /dev/ttyACM0
 ```
 由于文件中不可避免的会出现一些绝对路径的信息，还有诸如dev/ttyACM0这样应取决于你的硬件设备的相关文件，所以直接运行大概率会出问题，一般出问题后仔细查看报错，修改相关文件即可（这里因人而异，本章中无法做到非常详尽的指导，有过ros和c++开发经验应该很快能自己解决）
+<div align="center"><img src="doc/rosgraph-11-10.png" width=100% /></div>
+<div align="center">ROS Node Graph</div>
+<br>
+
+<div align="center"><img src="doc/topic-11-10-up.png" width=100% /></div>
+
+<div align="center"><img src="doc/topic-11-10-down.png" width=100% /></div>
+<div align="center">TOPIC</div>
+<br>
 
 ## 后续优化或修改
   上面的内容可以作为导航系统的雏形，或者说是初学者的快速入门。得益于ROS不同功能包之间的良好的解耦，后续可以针对上面slam部分，避障部分，路径规划部分独立修改并优化，后续的优化或修改，可以参考以下内容：
@@ -380,6 +389,9 @@ git clone https://github.com/seifEddy/velocity_smoother_ema.git
 
 ```
 velocity_smoother_ema的启动已经添加至sentry_movebase.launch file，并且现在串口订阅的是滤波后的速度即`/smooth_cmd_cel`
+<div align="center"><img src="doc/Filter-11-10.png" width=100% /></div>
+<div align="center">EMA FILTER</div>
+<br>
 ### 2023-11-02 make a little bit change to sentrial_serial.
 - 使用rosparam传递参数
 - 现在串口订阅 `/smooth_cmd_cel` 话题

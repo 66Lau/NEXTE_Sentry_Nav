@@ -37,9 +37,6 @@ void callback(const nav_msgs::Odometry& odom)
     odom_2d.twist.twist.angular.x = 0;
     odom_2d.twist.twist.angular.y = 0;
     odom_2d.twist.twist.angular.z = odom.twist.twist.angular.z;
-
-    
-
 }
 
 
