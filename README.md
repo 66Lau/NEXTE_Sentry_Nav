@@ -359,7 +359,7 @@ rosrun map_server map_saver map:=/projected_map -f /home/rm/ws_sentry/src/sentry
 
   2. navigation 导航
 ```bash
-roslaunch roslaunch livox_ros_driver2 msg_MID360.launch
+roslaunch livox_ros_driver2 msg_MID360.launch
 roslaunch fast_lio_localization sentry_localize.launch
 # 用rviz发布初始位姿或者 `rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0`
 roslaunch sentry_nav sentry_movebase.launch
