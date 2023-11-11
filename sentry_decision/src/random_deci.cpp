@@ -39,9 +39,10 @@ void callback(const nav_msgs::Odometry& odom)
     // std::cout << imu.orientation.x << std::endl;
     // std::cout << imu.orientation.y << std::endl;
 
-    double distance = abs(odom.pose.pose.position.x-Goal.pose.position.x)+abs(odom.pose.pose.position.y-Goal.pose.position.y);
+    distance = abs(odom.pose.pose.position.x-Goal.pose.position.x)+abs(odom.pose.pose.position.y-Goal.pose.position.y);
+    publish_flag = distance < trigger_distance;
 
-    if (distance < trigger_distance){
+    if (publish_flag ){
         Goal.header.frame_id = "map";
         Goal.pose.position.x = generateRandomNumber(min_x_range, max_x_range);
         Goal.pose.position.y = generateRandomNumber(min_y_range, max_y_range);
@@ -80,7 +81,8 @@ int main (int argc, char** argv){
 
     while(ros::ok()){
         ros::spinOnce();
-        goal_pub.publish(Goal);
+        if (publish_flag ){
+            goal_pub.publish(Goal);}
         r.sleep();}
         
 }

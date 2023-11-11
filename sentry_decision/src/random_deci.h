@@ -13,4 +13,7 @@ float min_y_range = -1.5;
 
 float trigger_distance = 0.8;
 
+double distance;
+bool publish_flag = true;
+
 #endif
