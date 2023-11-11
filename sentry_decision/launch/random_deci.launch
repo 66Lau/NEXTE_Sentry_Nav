@@ -1,5 +1,5 @@
 <launch>
-    <node pkg="sentry_decision" type="random_deci" name="sentry_send">
+    <node pkg="sentry_decision" type="random_deci" name="random_deci">
     </node>
 
 

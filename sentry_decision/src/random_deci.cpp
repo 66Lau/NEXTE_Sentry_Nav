@@ -61,7 +61,7 @@ int main (int argc, char** argv){
     ros::init(argc, argv, "random_deci");
 
     ros::NodeHandle n;
-    ros::Rate r(1);
+    ros::Rate r(0.4);
     Goal.header.frame_id = "map";
     Goal.pose.position.x = init_goal_x;
     Goal.pose.position.y = init_goal_y;
