@@ -40,7 +40,7 @@ void callback(const nav_msgs::Odometry& odom)
     // std::cout << imu.orientation.y << std::endl;
 
     distance = abs(odom.pose.pose.position.x-Goal.pose.position.x)+abs(odom.pose.pose.position.y-Goal.pose.position.y);
-    publish_flag = distance < trigger_distance;
+    publish_flag = (distance < trigger_distance);
 
     if (publish_flag ){
         Goal.header.frame_id = "map";
