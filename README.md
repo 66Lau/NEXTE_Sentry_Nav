@@ -398,6 +398,63 @@ velocity_smoother_ema的启动已经添加至sentry_movebase.launch file，并�
 - 现在串口订阅 `/smooth_cmd_cel` 话题
 - 增加了一个launch file并设定了参数
 
+### 2023-11-16 place the mid360 up side down
+<!-- The parameter should be modified:
+
+livox_ros_driver2:(MID360_config.json)
+``` h
+  "lidar_configs" : [
+    {
+      "ip" : "192.168.1.180",
+      "pcl_data_type" : 1,
+      "pattern_mode" : 0,
+      "extrinsic_parameter" : {
+        "roll": 180.0,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ]
+
+```
+
+Fast_lio:(mid360.yaml)
+```YAML
+    # default:false
+    extrinsic_est_en:  true      # true: enable the online estimation of IMU-LiDAR extrinsic
+    extrinsic_T: [ -0.011, -0.02329, 0.04412 ]
+    # default:[1,0,0,0,1,0,0,0,1]
+    extrinsic_R: [ 1, 0, 0,
+                   0, -1, 0,
+                   0, 0, -1]
+```
+Point_lio:(avia.yaml)
+```YAML
+    fov_degree: 360 
+    det_range: 450.0
+    # default:false
+    gravity_align: true # true to align the z axis of world frame with the direction of gravity, and the gravity direction should be specified below
+    # default:[0.0, 0.0, -9.810]
+    gravity: [0.0, 0.0, 9.810] # [0.0, 9.810, 0.0] # gravity to be aligned
+    # default:[0.0, 0.0, -9.810]
+    gravity_init: [0.0, 0.0, 9.810] # [0.0, 9.810, 0.0] # # preknown gravity in the first IMU body frame, use when imu_en is false or start from a non-stationary state
+    extrinsic_T: [ 0.04165, 0.02326, -0.0284 ]
+    # default:[1,0,0,0,1,0,0,0,1]
+    extrinsic_R: [ 1, 0, 0,
+                   0, -1, 0,
+                   0, 0, -1 ]
+
+``` -->
+### 2023-11-16 add rosbag for testing
+
+``` shell
+rosbag record -a -O ~/ws_sentry/mid360_bag/test.bag
+roslaunch livox_ros_driver2 msg_MID360.launch
+```
+
 ## F&Q
 1. 如何确保栅格地图和三维点云地图处于完全重合的状态
     - 采用时候fast_lio构建三维点云地图的同时，将点云数据用octomap压至二维地图,同时构建的地图可以确保relocalize在三维点云中的机器人位姿可以完全映射到二位栅格地图中使用
