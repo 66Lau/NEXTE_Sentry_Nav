@@ -350,7 +350,7 @@ rosrun sentry_serial sentry_send /dev/ttyACM0
 
   1. build the map  构建地图
 ```bash
-roslaunch roslaunch livox_ros_driver2 msg_MID360.launch
+roslaunch livox_ros_driver2 msg_MID360.launch
 roslaunch fast_lio_localization sentry_build_map.launch
 rosrun map_server map_saver map:=/projected_map -f /home/rm/ws_sentry/src/sentry_slam/FAST_LIO/PCD/scans
 ```

@@ -3,7 +3,7 @@ global_costmap:
   robot_base_frame: body_2d #机器人坐标系
   # 以此实现坐标变换
  
-  update_frequency: 1.0 #代价地图更新频率
+  update_frequency: 0.2 #代价地图更新频率
   publish_frequency: 1.0 #代价地图的发布频率
   transform_tolerance: 2 #等待坐标变换发布信息的超时时间
  

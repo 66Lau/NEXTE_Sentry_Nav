@@ -1,5 +1,5 @@
 #机器人几何参，如果机器人是圆形，设置 robot_radius,如果是其他形状设置 footprint
-robot_radius: 0.20 #圆形
+robot_radius: 0.40 #圆形
 # footprint: [[-0.12, -0.12], [-0.12, 0.12], [0.12, 0.12], [0.12, -0.12]] #其他形状
  
 obstacle_range: 3.0 # 用于障碍物探测，比如: 值为 3.0，意味着检测到距离小于 3 米的障碍物时，就会引入代价地图
@@ -7,7 +7,7 @@ raytrace_range: 3.5 # 用于清除障碍物，比如：值为 3.5，意味着清
  
  
 #膨胀半径，扩展在碰撞区域以外的代价区域，使得机器人规划路径避开障碍物
-inflation_radius: 0.1
+inflation_radius: 0.3
 #代价比例系数，越大则代价值越小
 cost_scaling_factor: 2.0
  

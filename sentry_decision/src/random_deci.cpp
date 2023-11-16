@@ -33,6 +33,7 @@ void callback(const nav_msgs::Odometry& odom)
 {
     // receive the msg from cmd_vel
     ROS_INFO("Receive a imu msg\n");
+    std::cout<< "Receive a imu msg\n";
     // ROS_INFO("The linear  velocity: x=%f, y=%f, z=%f\n",cmd_vel.linear.x,cmd_vel.linear.y,cmd_vel.linear.z);
     // ROS_INFO("The augular velocity: roll=%f, pitch=%f, yaw=%f\n",cmd_vel.angular.x, cmd_vel.angular.y, cmd_vel.angular.z);
     // put the data in union
@@ -62,7 +63,7 @@ int main (int argc, char** argv){
     ros::init(argc, argv, "random_deci");
 
     ros::NodeHandle n;
-    ros::Rate r(0.4);
+    ros::Rate r(1);
     Goal.header.frame_id = "map";
     Goal.pose.position.x = init_goal_x;
     Goal.pose.position.y = init_goal_y;
@@ -80,9 +81,11 @@ int main (int argc, char** argv){
     ros::Subscriber sub = n.subscribe("/localization", 1000, callback);  
 
     while(ros::ok()){
+        ROS_INFO("run decis\n");
         ros::spinOnce();
-        if (publish_flag ){
-            goal_pub.publish(Goal);}
+        // if (publish_flag ){
+            goal_pub.publish(Goal);
+            // }
         r.sleep();}
         
 }
