@@ -508,5 +508,10 @@ extrinsic_est_en:  false      # true: enable the online estimation of IMU-LiDAR 
   ```
   这里面的外参，只能改变点云相对陀螺仪的位姿，而不能将陀螺仪映射到你期望的pose去
 ## TODO
+- 等机械结构设计完成，实际对比一下倒装不自旋，斜装并自旋的定位效果
+- 对比一下只用里程计定位的效果，即不用icp
+- 尝试加入robot_localization的定位，即里程计高频输入，icp隔段时间融合消除累计误差
+- 尝试一下更高频的定位方法后的，move_base实车的效果
+- 把move_base扬了，换成cmu的autonomous_exploration_development_environment并使用FAR planner
 
 
