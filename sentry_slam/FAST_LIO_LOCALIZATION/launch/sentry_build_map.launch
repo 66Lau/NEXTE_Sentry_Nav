@@ -2,6 +2,7 @@
 <!-- Launch file for Livox AVIA LiDAR -->
 
 	<arg name="rviz" default="true" />
+	<arg name="use_sim_time" value="true"/>
 
 	<rosparam command="load" file="$(find fast_lio)/config/mid360.yaml" />
 
@@ -36,6 +37,11 @@
 	<!-- pointscloud2 to laserscans -->
 	<include file="$(find fast_lio_localization)/launch/PointsCloud2toLaserscan.launch">
 	</include>
+
+	<!-- 发布一个雷达body到机器人足端body_foot的静态映射 -->
+	<node pkg="tf2_ros" type="static_transform_publisher" name="tf_pub_1" args="0 0 0 0 0 0 body body_foot" />
+	<!-- 发布一个雷达初始位置camera_init到机器人足端初始位置body_init的静态映射 -->
+	<node pkg="tf2_ros" type="static_transform_publisher" name="tf_pub_2" args="0 0 0 0 0 0 camera_init foot_init" />
 
 
 </launch>

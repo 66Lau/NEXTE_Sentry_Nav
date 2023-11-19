@@ -457,8 +457,56 @@ roslaunch livox_ros_driver2 msg_MID360.launch
 
 ## F&Q
 1. 如何确保栅格地图和三维点云地图处于完全重合的状态
-    - 采用时候fast_lio构建三维点云地图的同时，将点云数据用octomap压至二维地图,同时构建的地图可以确保relocalize在三维点云中的机器人位姿可以完全映射到二位栅格地图中使用
 
+采用时候fast_lio构建三维点云地图的同时，将点云数据用octomap压至二维地图,同时构建的地图可以确保relocalize在三维点云中的机器人位姿可以完全映射到二位栅格地图中使用
+
+2. 关于雷达非常规安装位置的一点测试  
+
+再fast_lio中，或者说rviz的显示中，都是以camera_init为基坐标，也就是启动fast_lio时的雷达位姿作为基坐标，所以当你侧着放的时候，点云也是歪的，如图：
+    <div align="center"><img src="doc/Slope_down_37_degrees.png" width=80% /></div>
+    <div align="center">雷达向下倾斜37度</div>
+同时如果我们直接使用这样的坐标系进行建图，我们会得到这样的滑稽地图，可以很直观的看到，这个问题就是出在camera_init是以雷达imu初始位姿为基坐标系。
+    <div align="center"><img src="doc/Slope_down_37_degrees_mapping.png" width=80% /></div>
+但一般对于机器人来说，我们更加希望以机器人的初始位置的水平的坐标作为基坐标，这样我们从rviz可视化也不会那么难受，由于市面上主流的2d雷达很少涉及到斜着装的状况，所以相关博客都比较少，以下解决方式均是我没有经过其他资料验证的邪门歪道：  
+我们在sentry_build_map.launch文件中，加入如下代码：
+```XML
+<!-- 发布一个雷达body到机器人足端body_foot的静态映射 -->
+<node pkg="tf2_ros" type="static_transform_publisher" name="tf_pub_1" args="0 0 0.3 0 -0.645 0 body body_foot" />
+<!-- 发布一个雷达初始位置camera_init到机器人足端初始位置body_init的静态映射 -->
+<node pkg="tf2_ros" type="static_transform_publisher" name="tf_pub_2" args="0 0 0.3 0 -0.645 0 camera_init foot_init" />
+```
+<div align="center"><img src="doc/37_degree_adjust.png" width=80% /></div>
+可以看到，这样就舒服了(注意在PointCloud2Map.launch文件中，也要将原来的camera_init改为foot_init，因为现在是基于机器人foot坐标系了)
+
+这里补充一下，在fast_lio中的mid360.yaml中的外参
+```YML
+extrinsic_est_en:  false      # true: enable the online estimation of IMU-LiDAR extrinsic
+    extrinsic_T: [ -0.011, -0.02329, 0.04412 ]
+    extrinsic_R: [ 1, 0, 0,
+                   0, 1, 0,
+                   0, 0, 1]
+```
+指的是，使用外部的陀螺仪的话，雷达到外部陀螺仪的转换，而mid360的陀螺仪是内置在360里面的，且方向和点云方向是一致的，所以不能通过修改此处去改变陀螺仪方向
+
+同时livox_ros_driver2中的MID360_config.json里面的
+```YML
+"lidar_configs" : [
+    {
+      "ip" : "192.168.1.12",
+      "pcl_data_type" : 1,
+      "pattern_mode" : 0,
+      "extrinsic_parameter" : {
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0,
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ]
+  ```
+  这里面的外参，只能改变点云相对陀螺仪的位姿，而不能将陀螺仪映射到你期望的pose去
 ## TODO
 
 
