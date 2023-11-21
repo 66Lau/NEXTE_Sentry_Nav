@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /Grid1
-        - /Axes1
         - /mapping1/surround1
         - /mapping1/currPoints1
         - /mapping1/currPoints1/Autocompute Value Bounds1
@@ -17,7 +16,6 @@ Panels:
         - /Odometry1/Odometry1/Covariance1/Orientation1
         - /Localization1/localization1
         - /Localization1/localization1/Shape1
-        - /Axes2
         - /MarkerArray1/Namespaces1
       Splitter Ratio: 0.6382352709770203
     Tree Height: 497
@@ -66,13 +64,13 @@ Visualization Manager:
       Value: true
     - Alpha: 1
       Class: rviz/Axes
-      Enabled: true
+      Enabled: false
       Length: 0.699999988079071
       Name: Axes
       Radius: 0.05999999865889549
       Reference Frame: body_2d
       Show Trail: false
-      Value: true
+      Value: false
     - Class: rviz/Group
       Displays:
         - Alpha: 1
@@ -327,13 +325,13 @@ Visualization Manager:
       Name: Localization
     - Alpha: 1
       Class: rviz/Axes
-      Enabled: true
+      Enabled: false
       Length: 0.699999988079071
       Name: Axes
       Radius: 0.10000000149011612
       Reference Frame: body
       Show Trail: false
-      Value: true
+      Value: false
     - Alpha: 0
       Buffer Length: 3
       Class: rviz/Path
@@ -440,6 +438,43 @@ Visualization Manager:
       Topic: /move_base_simple/goal
       Unreliable: false
       Value: true
+    - Class: rviz/TF
+      Enabled: true
+      Filter (blacklist): ""
+      Filter (whitelist): ""
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        body:
+          Value: true
+        body_2d:
+          Value: true
+        body_foot:
+          Value: true
+        camera_init:
+          Value: true
+        map:
+          Value: true
+        robot_foot_init:
+          Value: true
+      Marker Alpha: 1
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        map:
+          body_2d:
+            {}
+          camera_init:
+            body:
+              body_foot:
+                {}
+            robot_foot_init:
+              {}
+      Update Interval: 0
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 0; 0; 0
@@ -468,7 +503,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 20.852230072021484
+      Distance: 3.957557439804077
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -484,9 +519,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.4897958040237427
+      Pitch: 0.8497968912124634
       Target Frame: body
-      Yaw: 1.5867658853530884
+      Yaw: 2.9667680263519287
     Saved: ~
 Window Geometry:
   Displays:

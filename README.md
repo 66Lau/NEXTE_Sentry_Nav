@@ -398,7 +398,7 @@ velocity_smoother_ema的启动已经添加至sentry_movebase.launch file，并�
 - 现在串口订阅 `/smooth_cmd_cel` 话题
 - 增加了一个launch file并设定了参数
 
-### 2023-11-16 place the mid360 up side down
+<!-- ### 2023-11-16 place the mid360 up side down -->
 <!-- The parameter should be modified:
 
 livox_ros_driver2:(MID360_config.json)
@@ -455,12 +455,18 @@ rosbag record -a -O ~/ws_sentry/mid360_bag/test.bag
 roslaunch livox_ros_driver2 msg_MID360.launch
 ```
 
+### 2023-11-16 data record
+For the Localization  
+the delay of the icp-relocalization is 20ms  
+the delay of the fast_lio is 1.6ms  
+add a launch file that only using fast_lio odometry for localization
+
 ## F&Q
-1. 如何确保栅格地图和三维点云地图处于完全重合的状态
+### 1. 如何确保栅格地图和三维点云地图处于完全重合的状态
 
 采用时候fast_lio构建三维点云地图的同时，将点云数据用octomap压至二维地图,同时构建的地图可以确保relocalize在三维点云中的机器人位姿可以完全映射到二位栅格地图中使用
 
-2. 关于雷达非常规安装位置的一点测试  
+### 2. 关于雷达非常规安装位置的一点测试  
 
 再fast_lio中，或者说rviz的显示中，都是以camera_init为基坐标，也就是启动fast_lio时的雷达位姿作为基坐标，所以当你侧着放的时候，点云也是歪的，如图：
     <div align="center"><img src="doc/Slope_down_37_degrees.png" width=80% /></div>
@@ -507,6 +513,8 @@ extrinsic_est_en:  false      # true: enable the online estimation of IMU-LiDAR 
   ]
   ```
   这里面的外参，只能改变点云相对陀螺仪的位姿，而不能将陀螺仪映射到你期望的pose去
+
+
 ## TODO
 - 等机械结构设计完成，实际对比一下倒装不自旋，斜装并自旋的定位效果
 - 对比一下只用里程计定位的效果，即不用icp

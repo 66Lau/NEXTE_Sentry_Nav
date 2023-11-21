@@ -2,6 +2,7 @@
 <!-- Launch file for Livox MID360 LiDAR -->
 
 	<arg name="rviz" default="true" />
+	<arg name="use_sim_time" value="true"/>
 
 	<rosparam command="load" file="$(find fast_lio)/config/mid360.yaml" />
 
