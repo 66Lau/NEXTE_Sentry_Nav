@@ -4,6 +4,8 @@
 
 本文的代码地址：https://github.com/66Lau/NEXTE_Sentry_Nav
 
+如果需要仿真环境：https://github.com/66Lau/sentry_sim
+
 环境：
 - ros-noetic 
 - ubuntu 20.04  
