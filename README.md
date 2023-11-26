@@ -48,10 +48,14 @@ sudo apt install ros-humble-pcl-ros
 
 ``` bash
 # 编译fast-lio
-cd src
-git clone https://github.com/zlwang7/S-FAST_LIO.git --recursive
-cd ..
+#这里进入的是你自己的工作空间的src，注意替换$A_ROS_DIR$
+cd ~/$A_ROS_DIR$/src
+git clone https://github.com/hku-mars/FAST_LIO.git
+cd FAST_LIO
+git submodule update --init
+cd ../..
 catkin_make
+source devel/setup.bash
 # 注意，如果使用的是mid360，即使用的是livox_ros_driver2而非1的话，
 # 需要前往fast-lio的CmakeLists文件修改find_package里的livox_ros_driver为livox_ros_driver2，同时package.xml里面的也一样
 ```
