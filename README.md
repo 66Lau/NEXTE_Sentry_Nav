@@ -370,7 +370,7 @@ roslaunch fast_lio_localization sentry_localize.launch
 # 用rviz发布初始位姿或者 `rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0`
 roslaunch sentry_nav sentry_movebase.launch
 # 用rviz发布目标点
-rosrun sentry_serial sentry_send /dev/ttyACM0
+roslaunch sentry_serial sentry_serial.launch
 ```
 由于文件中不可避免的会出现一些绝对路径的信息，还有诸如dev/ttyACM0这样应取决于你的硬件设备的相关文件，所以直接运行大概率会出问题，一般出问题后仔细查看报错，修改相关文件即可（这里因人而异，本章中无法做到非常详尽的指导，有过ros和c++开发经验应该很快能自己解决）
 <div align="center"><img src="doc/rosgraph-11-10.png" width=100% /></div>

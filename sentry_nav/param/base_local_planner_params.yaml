@@ -33,7 +33,7 @@
   # =================== segement ===============
 base_local_planner: "dwa_local_planner/DWAPlannerROS"
 
-controller_frequency: 15      # 20.0
+controller_frequency: 20      # 20.0
 # controller_patience:  15.0      # 15.0
 
 DWAPlannerROS:
@@ -72,9 +72,9 @@ DWAPlannerROS:
 
   # Acceleration and velocity limits
 
-  acc_limit_trans: 100
-  acc_lim_x: 100.0                # 2.5
-  acc_lim_y: 100.0                # 2.5
+  acc_limit_trans: 10
+  acc_lim_x: 10.0                # 2.5
+  acc_lim_y: 10.0                # 2.5
   # acc_lim_theta: 1.0            # 3.2
 
   max_trans_vel: 1
@@ -98,4 +98,4 @@ DWAPlannerROS:
   publish_traj_pc: true
   publish_cost_grid_pc: true
   # global_frame_id: camera_init_2d
-  global_frame_id: camera_init
+  global_frame_id: robot_foot_init
