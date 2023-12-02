@@ -37,12 +37,12 @@
 [FAST-LIO配置中文博客](https://blog.csdn.net/qq_42108414/article/details/131530293?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169737102216800185825796%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169737102216800185825796&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-131530293-null-null.142^v96^pc_search_result_base9&utm_term=fast%20lio%E9%85%8D%E7%BD%AE&spm=1018.2226.3001.4187)  
 [关于在ROS1下用MID360配置FAST-LIO2备忘](https://blog.csdn.net/qq_52784762/article/details/132736322?ops_request_misc=&request_id=&biz_id=102&utm_term=fast%20lio%E9%85%8D%E7%BD%AE&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-1-132736322.142^v96^pc_search_result_base9&spm=1018.2226.3001.4187)  
 更建议参考源地址的READEME
-```
+
+```bash
 sudo apt install libeigen3-dev
-```
-``` bash
 sudo apt install libpcl-dev
 ```
+
 ```bash
 # ros2需要安装
 sudo apt install ros-humble-pcl-ros
@@ -59,7 +59,7 @@ cd ../..
 catkin_make
 source devel/setup.bash
 # 注意，如果使用的是mid360，即使用的是livox_ros_driver2而非1的话，
-# 需要前往fast-lio的CmakeLists文件修改find_package里的livox_ros_driver为livox_ros_driver2，同时package.xml里面的也一样
+# 需要前往fast-lio的CmakeLists文件修改find_package里的livox_ros_driver为livox_ros_driver2，同时package.xml里面的也一样，对应的src中的cpp文件也需要修改，嫌改的麻烦的话mid360可以直接用我仓库中的fast_lio
 ```
 
 ``` bash
@@ -89,14 +89,15 @@ SO2::SO2()
 }
 ```
 sophus安装成功后再重新编译fast-lio
-``` bash
-# 注意：laserMapping.cpp和laserMapping_re.cpp里面include的livox_ros_driver改为livox_ros_driver_v2
-```
+
 最后运行
 ``` bash
+# 进入livox_ros_driver2所在的工作空间
+cd ~/$A_ROS_DIR$
 source devel/setup.bash
 roslaunch livox_ros_driver2 msg_MID360.launch
-#再开一个终端
+#再开一个终端，进入fast_lio所在的工作空间
+cd ~/$A_ROS_DIR$
 source devel/setup.bash
 roslaunch fast_lio mapping_mid360.launch
 
@@ -172,7 +173,7 @@ rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0
     方式二：使用`octomap_server`功能包,离线将pcd转换成栅格地图，参考[octomap_server使用－－生成二维占据栅格地图和三维概率地图](https://blog.csdn.net/sru_alo/article/details/85083030?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169804282616800213031883%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=169804282616800213031883&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-85083030-null-null.142^v96^pc_search_result_base9&utm_term=%E7%82%B9%E4%BA%91%E5%9C%B0%E5%9B%BE%E7%94%9F%E6%88%90%E6%A0%85%E6%A0%BC%E5%9C%B0%E5%9B%BE&spm=1018.2226.3001.4187)  
   2. 在fast_lio构建三维点云地图的同时，也实时构建2d的栅格地图
 
-本文的代码仓库里两种方式都有，常用的是第二种
+本文的代码仓库里两种方式都有，常用的是第二种，如果你是打比赛之类的用的话，建议你建图的时候可以使用rosbag录制一下你的雷达的话题（imu+pcd）,这样就算建图效果一般，也能离线重新rosbag play进行建图
 #### 配置：
 ```bash
 sudo apt install ros-noetic-map-server
@@ -198,7 +199,7 @@ git clone https://github.com/Hinson-A/pcd2pgm_package.git
 roslaunch pcd2pgm run.launch
 ```
 #### 方式二实现
-使用`octomap_server`功能包中的`octomap_server_node`节点, 实时读取三维点云, 并生成栅格地图.
+使用`octomap_server`功能包中的`octomap_server_node`节点, 实时读取三维点云, 并生成栅格地图(这个方法其实也能离线将PCD转为栅格地图).
 
 我们在 `FAST_LIO` 功能包中添加了 `Pointcloud2Map.launch`, which will update the 2D mapping at same time, if you publish the PointCloud2 from FAST_LIO. 
 
@@ -363,7 +364,17 @@ rosrun map_server map_saver map:=/projected_map -f /home/rm/ws_sentry/src/sentry
 
 
 
-  2. navigation 导航
+  2. navigation 导航（基于icp重定位）
+```bash
+roslaunch livox_ros_driver2 msg_MID360.launch
+roslaunch fast_lio_localization sentry_localize.launch
+# 用rviz发布初始位姿或者 `rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0`
+roslaunch sentry_nav sentry_movebase.launch
+# 用rviz发布目标点
+roslaunch sentry_serial sentry_serial.launch
+```
+
+  3. navigation 导航(基于里程计定位，由于fast_lio的精度不错，所以基本上没什么累计误差，但是初始摆放位置必须准确)
 ```bash
 roslaunch livox_ros_driver2 msg_MID360.launch
 roslaunch fast_lio_localization sentry_localize.launch
@@ -384,7 +395,15 @@ roslaunch sentry_serial sentry_serial.launch
 <br>
 
 <div align="center"><img src="doc/tftree_nav.png" width=90% /></div>
+<div align="center">TF_tree</div>
+<br>
+这里对于tf树做一点说明
 
+ - map->camera_init：tf转换由重定位icp发布，如果直接使用里程计定位，则是由static_transform_publisher静态发布。
+ - cmera_init->robot_foot_init：由static_transform_publisher静态发布，这样作用是mid360到机器人足端的转换，robot_foot_init意味着机器人足端的初始位姿
+ - camera_init->body：由fast_lio的里程计信息发布，就是雷达的初始位姿，到雷达当前位姿的关系
+ - body->body_foot：主要作用是将雷达的位姿转换到机器人足端，也是静态发布
+ - map->body_2d：由Trans_body_2d.cpp发布，主要作用是将body投影到2dmap上(如果斜着装或者倒着装，建议在move_base中把这个换成body_foot)
 
 ## 后续优化或修改
   上面的内容可以作为导航系统的雏形，或者说是初学者的快速入门。得益于ROS不同功能包之间的良好的解耦，后续可以针对上面slam部分，避障部分，路径规划部分独立修改并优化，后续的优化或修改，可以参考以下内容：
@@ -522,6 +541,11 @@ extrinsic_est_en:  false      # true: enable the online estimation of IMU-LiDAR 
   ]
   ```
   这里面的外参，只能改变点云相对陀螺仪的位姿，而不能将陀螺仪映射到你期望的pose去
+
+  ### 3. 关于全向移动（云台类似无人机的6自由度模型）运动时yaw轴自旋时的导航
+  由于比赛需要和机械设计的原因，我们的雷达安装在yaw轴上，同时yaw轴还在不断自旋，自旋的同时向xy方向全向移动，这个时候要注意控制频率的问题。
+
+  一般局部路径规划器的输出都是10-15hz，也就是延迟达到0.1s，如果同时在自旋的话，这0.1秒会带来很大的角度偏差！一般下位机的电机控制频率可能在500-1000hz，这种情况下，需要下位机在0.1秒内，根据距离上一时刻接受导航的串口数据的时间差，叠加上旋转过的角度，解算出此时刻的速度方向。 
 
 
 ## TODO
