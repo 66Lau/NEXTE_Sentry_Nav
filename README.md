@@ -383,6 +383,9 @@ roslaunch sentry_serial sentry_serial.launch
 <div align="center">TOPIC</div>
 <br>
 
+<div align="center"><img src="doc/tftree_nav.png" width=90% /></div>
+
+
 ## 后续优化或修改
   上面的内容可以作为导航系统的雏形，或者说是初学者的快速入门。得益于ROS不同功能包之间的良好的解耦，后续可以针对上面slam部分，避障部分，路径规划部分独立修改并优化，后续的优化或修改，可以参考以下内容：
 

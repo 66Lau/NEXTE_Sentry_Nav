@@ -12,6 +12,7 @@ int main(int argc, char** argv){
   tf::TransformListener listener;
   tf::TransformBroadcaster broadcaster;
   tf::Transform transform_broadcaster;
+  ros::Duration(1.0).sleep();
 
   ros::Rate rate(1000);
   while (node.ok()){
