@@ -1,0 +1,14 @@
+GlobalPlanner:
+  allow_unknown: true  #默认true，是否允许路径穿过未知区域
+  default_tolerance: 0.2  #默认0.0，目标容差
+  visualize_potential: false #默认false，是否显示从PointCloud2计算得到的势区域
+  use_dijkstra: true #默认true，true表示使用dijkstra's否则使用A*
+  use_quadratic: true #默认true，true表示使用二次函数近似函数
+  use_grid_path: false #默认false，true表示使路径沿栅格边界生成，否则使用梯度下降算法
+  old_navfn_behavior: false #默认false，是否复制navfn规划器的结果
+  lethal_cost: 253 #默认253，致命代价值
+  neutral_cost: 50 #默认50，中等代价值
+  cost_factor: 3.0 #默认3.0，代价因子
+  publish_potential: true #默认true，是否发布costmap的势函数
+  orientation_mode: 0 #默认0，设置点的方向
+  orientation_window_size: 1 #默认1，根据orientation_mode指定的位置积分确定窗口方向

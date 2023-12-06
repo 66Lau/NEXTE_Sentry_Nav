@@ -5,6 +5,7 @@
         <rosparam file="$(find sentry_nav)/param/local_costmap_params.yaml" command="load" />
         <rosparam file="$(find sentry_nav)/param/global_costmap_params.yaml" command="load" />
         <rosparam file="$(find sentry_nav)/param/base_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find sentry_nav)/param/global_planner_params.yaml" command="load" />
     </node>
 
     <node pkg="sentry_nav" type="trans_tf_2d" name="trans_tF_2d" />
