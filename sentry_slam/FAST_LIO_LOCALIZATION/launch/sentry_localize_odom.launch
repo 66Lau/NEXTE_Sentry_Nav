@@ -1,5 +1,6 @@
 <launch>
 <!-- Launch file for Livox AVIA LiDAR -->
+<!-- 此文件仅适用于NEXT-E队伍的哨兵机械结构 -->
 
 	<arg name="rviz" default="true" />
 	<arg name="use_sim_time" value="true"/>
@@ -18,19 +19,15 @@
     <node pkg="fast_lio" type="fastlio_mapping" name="laserMapping" output="screen" /> 
 
 
-
-	<!-- loalization-->
-
-
-	<!-- transform  fusion-->
-
-
-	<!-- glbal map-->
+	<!-- glbal PCD map-->
     <node pkg="pcl_ros" type="pcd_to_pointcloud" name="map_publishe" output="screen"
 		  args="$(arg map) 5 _frame_id:=map cloud_pcd:=map" />
+
 	<!-- load 2d map -->
 	<arg name="2dmap" default="scans.yaml" />
-	<node name = "map_server" pkg = "map_server" type = "map_server" args="$(find fast_lio)/PCD/scans.yaml /map:=prior_map"/>
+	<node name = "map_server" pkg = "map_server" type = "map_server" args="$(find fast_lio)/PCD/scans.yaml /map:=prior_map">
+		<param name = "frame_id" value="robot_foot_init" />
+	</node>
 
 	<group if="$(arg rviz)">
 	<node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find fast_lio_localization)/rviz_cfg/localization.rviz" />
@@ -41,9 +38,9 @@
 	</include>
 
 	<!-- 发布一个雷达body到机器人足端body_foot的静态映射 -->
-	<node pkg="tf2_ros" type="static_transform_publisher" name="tf_pub_1" args="0 0 0 0 0 0 body body_foot" />
+	<node pkg="tf2_ros" type="static_transform_publisher" name="tf_pub_1" args="0 0 0.7800 0 0 3.1415 body body_foot" />
 	<!-- 发布一个雷达初始位置camera_init到机器人足端初始位置body_init的静态映射 -->
-	<node pkg="tf2_ros" type="static_transform_publisher" name="tf_pub_2" args="0 0 0 0 0 0 camera_init robot_foot_init" />
+	<node pkg="tf2_ros" type="static_transform_publisher" name="tf_pub_2" args="0 0 0.7800 0 0 3.1415 camera_init robot_foot_init" />
 	<!-- 发布一个雷达初始位置camera_init到map的静态映射 -->
 	<node pkg="tf2_ros" type="static_transform_publisher" name="tf_pub_3" args="0 0 0 0 0 0 map camera_init" />
 

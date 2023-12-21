@@ -542,6 +542,29 @@ extrinsic_est_en:  false      # true: enable the online estimation of IMU-LiDAR 
   ```
   这里面的外参，只能改变点云相对陀螺仪的位姿，而不能将陀螺仪映射到你期望的pose去
 
+  update in 2023-12-21:
+
+  此次修改主要是完全将雷达倒置之后对于整套建图及导航的修正。
+
+  #### 修改:PointsCloud2toLaserscan.launch
+  - 指定`target_frame`: `body_foot`而非雷达的body
+
+  #### 修改：sentry_build_map.launch 以及 sentry_localize_odom.launch
+  - 修改雷达到机器人足端的静态映射
+  - 修改`Pointcloud2Map.launch`的`pointcloud_max_z`以及`pointcloud_min_z`参数以及`frame_id`参数
+    - 注意，这里的`pointcloud_max_z`以及`pointcloud_min_z`指的是在点云中，认为是障碍物点云的最大高度和最小高度，由于现在雷达倒置，所以最低高度必须大于0，否则整片地图都是障碍物
+  - `map_server`节点的`frame_id`要修改为`robot_foot_init`
+
+  #### 修改：costmap_common_params.yaml
+  - `scan的sensor_frame要修改为body_foot`
+
+  #### 修改：rviz
+  - 现在rviz的基坐标的是robot_foot_init
+
+<div align="center"><img src="doc/invert_lidar_navi.png" width=80% /></div>
+如图，上面的TF是雷达的TF，下面的TF是机器人的足端，绿色细线是全局规划，蓝色粗线是局部规划
+
+
   ### 3. 关于全向移动（云台类似无人机的6自由度模型）运动时yaw轴自旋时的导航
   由于比赛需要和机械设计的原因，我们的雷达安装在yaw轴上，同时yaw轴还在不断自旋，自旋的同时向xy方向全向移动，这个时候要注意控制频率的问题。
 
