@@ -1,12 +1,19 @@
 <launch>
+    <arg name = "resolution" default="0.1" />
+    <arg name = "frame_id" default="robot_foot_init" />
+    <arg name = "sensor_model/max_range" default="1000.0" />
+    <arg name = "latch" default="true" />
+    <arg name = "pointcloud_max_z" default = "1.0" />
+    <arg name = "pointcloud_min_z" default = "0.0" />
+
     <node pkg="octomap_server" type = "octomap_server_node" name="octomap_server">
 
-        <param name ="resolution" value="0.1" />
-        <param name = "frame_id" type="str" value="robot_foot_init" />
-        <param name = "sensor_model/max_range" value="1000.0" />
-        <param name = "latch" value="true" />
-        <param name = "pointcloud_max_z" value="1" />
-        <param name = "pointcloud_min_z" value="0.0" />
+        <param name ="resolution" value="$(arg resolution)" />
+        <param name = "frame_id" type="str" value="$(arg frame_id)" />
+        <param name = "sensor_model/max_range" value="$(arg sensor_model/max_range)" />
+        <param name = "latch" value="$(arg latch)" />
+        <param name = "pointcloud_max_z" value="$(arg pointcloud_max_z)" />
+        <param name = "pointcloud_min_z" value="$(arg pointcloud_min_z)" />
 
         <remap from ="cloud_in" to="/cloud_registered" />
     </node>
