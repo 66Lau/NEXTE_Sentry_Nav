@@ -542,6 +542,10 @@ extrinsic_est_en:  false      # true: enable the online estimation of IMU-LiDAR 
   ```
   这里面的外参，只能改变点云相对陀螺仪的位姿，而不能将陀螺仪映射到你期望的pose去
 
+  2023-12-21更新：
+
+  由于机械结构设计的改变，我的机器人的雷达安装位置已经改为倒置，由于修改内容较多，故另起了一个分支[invert_lidar](https://github.com/66Lau/NEXTE_Sentry_Nav/tree/invert_lidar)。主分支现现在是基础的正常安装的流程记录。
+
   ### 3. 关于全向移动（云台类似无人机的6自由度模型）运动时yaw轴自旋时的导航
   由于比赛需要和机械设计的原因，我们的雷达安装在yaw轴上，同时yaw轴还在不断自旋，自旋的同时向xy方向全向移动，这个时候要注意控制频率的问题。
 
