@@ -6,23 +6,22 @@
 
 serial::Serial sentry_ser; //声明串口对象
 
-uint8_t data_len = 49;
+uint8_t data_len = 13;
 std::string cmd_vel_topic;
 
 union Serial_Package
 {
+    #pragma pack (1) 
     struct
     {
         uint8_t  header = 0xA5;
-        double  linear_x;
-        double  linear_y;
-        double   linear_z;
-        double   angular_x;
-        double   angular_y;
-        double   angular_z;
+        float  linear_x;
+        float  linear_y;
+        float  angular_z;
 
     };
-    uint8_t Send_Buffer[49];
+    #pragma pack ()
+    uint8_t Send_Buffer[13];
 };
 
 #endif

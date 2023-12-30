@@ -364,7 +364,7 @@ rosrun map_server map_saver map:=/projected_map -f /home/rm/ws_sentry/src/sentry
 
 
 
-  2. navigation 导航（基于icp重定位）
+  2. navigation 导航（基于icp重定位）-倒装请勿使用
 ```bash
 roslaunch livox_ros_driver2 msg_MID360.launch
 roslaunch fast_lio_localization sentry_localize.launch
