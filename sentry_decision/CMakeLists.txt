@@ -135,6 +135,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/sentry_decision_node.cpp)
 add_executable(random_deci src/random_deci.cpp)
+add_executable(midterm_deci src/midterm_deci.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -151,6 +152,10 @@ add_executable(random_deci src/random_deci.cpp)
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(random_deci
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(midterm_deci
   ${catkin_LIBRARIES}
 )
 

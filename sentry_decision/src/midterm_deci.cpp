@@ -49,7 +49,10 @@ double generateRandomNumber(double min, double max){
 void callback(const nav_msgs::Odometry& odom)
 {
 
-    distance = abs(odom.pose.pose.position.x-Goal.pose.position.x)+abs(odom.pose.pose.position.y-Goal.pose.position.y);
+    distance = abs(odom.pose.pose.position.x-Goal.pose.position.x)+abs(odom.pose.pose.position.y+Goal.pose.position.y);
+    ROS_INFO("distance = %f\n",distance);
+
+
     
 }
 
@@ -58,14 +61,14 @@ int main (int argc, char** argv){
     ros::init(argc, argv, "midterm_deci");
 
     ros::NodeHandle n;
-    ros::Rate r(1);//一秒执行一次
+    ros::Rate r(0.5);//一秒执行一次
 
     getStartGoal();
     
     ros::Publisher goal_pub = n.advertise<geometry_msgs::PoseStamped>("/move_base_simple/goal",50);
     goal_pub.publish(Goal);
 
-    ros::Subscriber sub = n.subscribe("/localization", 1000, callback);  
+    ros::Subscriber sub = n.subscribe("/Odometry", 1000, callback);  
 
     while(ros::ok()){
         ROS_INFO("run midterm_decis\n");
@@ -76,12 +79,12 @@ int main (int argc, char** argv){
         {
             switch(switch_num)
             {
-                case 0:
+                case 1:
                     getOutpostGoal();
                     break;
                 
                 default:
-                    if(switch_num >= 1 && switch_num <= 8 && switch_num % 2 != 0)
+                    if(switch_num >= 2 && switch_num <= 8 && switch_num % 2 != 0)
                         {getDoublePoints1Goal();}
                     else if(switch_num >= 2 && switch_num <= 8 && switch_num % 2 == 0)
                         {getDoublePoints2Goal();}
@@ -101,7 +104,7 @@ int main (int argc, char** argv){
 
 void getStartGoal()
 {
-    Goal.header.frame_id = "map";
+    Goal.header.frame_id = "robot_foot_init";
     Goal.pose.position.x = init_goal_x;
     Goal.pose.position.y = init_goal_y;
     
@@ -115,9 +118,9 @@ void getStartGoal()
 
 void getOutpostGoal()
 {
-    Goal.header.frame_id = "map";
-    Goal.pose.position.x = 2.0;
-    Goal.pose.position.y = 1.0;
+    Goal.header.frame_id = "robot_foot_init";
+    Goal.pose.position.x = 3.0;
+    Goal.pose.position.y = 0.8;
     Goal.pose.position.z = 0;
     Goal.pose.orientation.x = 0;
     Goal.pose.orientation.y = 0;
@@ -128,9 +131,9 @@ void getOutpostGoal()
 
 void getDoublePoints1Goal()
 {
-    Goal.header.frame_id = "map";
-    Goal.pose.position.x = 0.0;
-    Goal.pose.position.y = 1.5;
+    Goal.header.frame_id = "robot_foot_init";
+    Goal.pose.position.x = 1.0;
+    Goal.pose.position.y = 0.2;
     Goal.pose.position.z = 0;
     Goal.pose.orientation.x = 0;
     Goal.pose.orientation.y = 0;
@@ -141,9 +144,9 @@ void getDoublePoints1Goal()
 
 void getDoublePoints2Goal()
 {
-    Goal.header.frame_id = "map";
-    Goal.pose.position.x = 0.0;
-    Goal.pose.position.y = -1.5;
+    Goal.header.frame_id = "robot_foot_init";
+    Goal.pose.position.x = 1.0;
+    Goal.pose.position.y = -0.8;
     Goal.pose.position.z = 0;
     Goal.pose.orientation.x = 0;
     Goal.pose.orientation.y = 0;
@@ -154,7 +157,7 @@ void getDoublePoints2Goal()
 
 void getRandomGoal()
 {
-    Goal.header.frame_id = "map";
+    Goal.header.frame_id = "robot_foot_init";
     Goal.pose.position.x = generateRandomNumber(min_x_range, max_x_range);
     Goal.pose.position.y = generateRandomNumber(min_y_range, max_y_range);
     Goal.pose.position.z = 0;
