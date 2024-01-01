@@ -28,17 +28,8 @@ double generateRandomNumber(double min, double max){
     //if No: back to step 1
 //3.if Yes:get a random new goal and back to step 0
 
-// 接收到订阅的消息后，会进入消息回调函数
 void callback(const nav_msgs::Odometry& odom)
 {
-    // receive the msg from cmd_vel
-    ROS_INFO("Receive a imu msg\n");
-    std::cout<< "Receive a imu msg\n";
-    // ROS_INFO("The linear  velocity: x=%f, y=%f, z=%f\n",cmd_vel.linear.x,cmd_vel.linear.y,cmd_vel.linear.z);
-    // ROS_INFO("The augular velocity: roll=%f, pitch=%f, yaw=%f\n",cmd_vel.angular.x, cmd_vel.angular.y, cmd_vel.angular.z);
-    // put the data in union
-    // std::cout << imu.orientation.x << std::endl;
-    // std::cout << imu.orientation.y << std::endl;
 
     distance = abs(odom.pose.pose.position.x-Goal.pose.position.x)+abs(odom.pose.pose.position.y-Goal.pose.position.y);
     publish_flag = (distance < trigger_distance);
@@ -53,8 +44,6 @@ void callback(const nav_msgs::Odometry& odom)
         Goal.pose.orientation.z = 0.1;
         Goal.pose.orientation.w = 1;
         ROS_INFO("GET NEW GOAL!! : x=%f, y=%f\n",Goal.pose.position.x,Goal.pose.position.y);
-
-
     }
 }
 
