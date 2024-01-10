@@ -19,11 +19,7 @@ void callback(const geometry_msgs::Twist& cmd_vel)
     serial_package.header = 0xA5;
     serial_package.linear_x = cmd_vel.linear.x;
     serial_package.linear_y = cmd_vel.linear.y;
-    serial_package.linear_z = cmd_vel.linear.z;
-
-    serial_package.angular_y = cmd_vel.angular.z;
-    serial_package.angular_z = cmd_vel.angular.x;
-    serial_package.angular_x = cmd_vel.angular.y;
+    serial_package.angular_z = cmd_vel.angular.z;
 
     sentry_ser.flush ();
     sentry_ser.write(serial_package.Send_Buffer,data_len);
@@ -50,7 +46,7 @@ int main (int argc, char** argv){
         }
         std::cout<<serial_port<<std::endl;
         sentry_ser.setPort(serial_port);
-        sentry_ser.setBaudrate(9600);
+        sentry_ser.setBaudrate(115200);
         serial::Timeout to = serial::Timeout::simpleTimeout(1000);
         sentry_ser.setTimeout(to);
         sentry_ser.open();
