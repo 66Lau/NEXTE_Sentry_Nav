@@ -82,13 +82,22 @@ int main (int argc, char** argv){
                 case 1:
                     getOutpostGoal();
                     break;
+                case 2:
+                    getOutpostGoal();
+                    break;
+                case 3:
+                    getOutpostGoal();
+                    break;
+                case 4:
+                    getOutpostGoal();
+                    break;
                 
                 default:
-                    if(switch_num >= 2 && switch_num <= 8 && switch_num % 2 != 0)
+                    if(switch_num >= 5 && switch_num <= 12 && switch_num % 2 != 0)
                         {getDoublePoints1Goal();}
-                    else if(switch_num >= 2 && switch_num <= 8 && switch_num % 2 == 0)
+                    else if(switch_num >= 5 && switch_num <= 12 && switch_num % 2 == 0)
                         {getDoublePoints2Goal();}
-                    else if(switch_num >= 9)
+                    else if(switch_num >= 13)
                         {getRandomGoal();}
                     break;
             }
@@ -133,7 +142,7 @@ void getDoublePoints1Goal()
 {
     Goal.header.frame_id = "robot_foot_init";
     Goal.pose.position.x = 1.0;
-    Goal.pose.position.y = 0.2;
+    Goal.pose.position.y = 1.0;
     Goal.pose.position.z = 0;
     Goal.pose.orientation.x = 0;
     Goal.pose.orientation.y = 0;
@@ -146,7 +155,7 @@ void getDoublePoints2Goal()
 {
     Goal.header.frame_id = "robot_foot_init";
     Goal.pose.position.x = 1.0;
-    Goal.pose.position.y = -0.8;
+    Goal.pose.position.y = -0.4;
     Goal.pose.position.z = 0;
     Goal.pose.orientation.x = 0;
     Goal.pose.orientation.y = 0;

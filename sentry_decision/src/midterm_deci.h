@@ -8,8 +8,8 @@ float init_goal_y = 0;
 
 float max_x_range = 5;
 float min_x_range = 0.3;
-float max_y_range = -1.5;
-float min_y_range = 1.5;
+float max_y_range = -1.0;
+float min_y_range = 1.0;
 
 float trigger_distance = 0.6;
 
