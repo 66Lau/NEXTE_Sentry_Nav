@@ -377,7 +377,7 @@ roslaunch sentry_serial sentry_serial.launch
   3. navigation 导航(基于里程计定位，由于fast_lio的精度不错，所以基本上没什么累计误差，但是初始摆放位置必须准确)
 ```bash
 roslaunch livox_ros_driver2 msg_MID360.launch
-roslaunch fast_lio_localization sentry_localize.launch
+roslaunch fast_lio_localization sentry_localize_odom.launch
 # 用rviz发布初始位姿或者 `rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0`
 roslaunch sentry_nav sentry_movebase.launch
 # 用rviz发布目标点
