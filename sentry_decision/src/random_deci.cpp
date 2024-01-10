@@ -44,7 +44,7 @@ void callback(const nav_msgs::Odometry& odom)
     publish_flag = (distance < trigger_distance);
 
     if (publish_flag ){
-        Goal.header.frame_id = "map";
+        Goal.header.frame_id = "robot_foot_init";
         Goal.pose.position.x = generateRandomNumber(min_x_range, max_x_range);
         Goal.pose.position.y = generateRandomNumber(min_y_range, max_y_range);
         Goal.pose.position.z = 0;
@@ -64,7 +64,7 @@ int main (int argc, char** argv){
 
     ros::NodeHandle n;
     ros::Rate r(1);
-    Goal.header.frame_id = "map";
+    Goal.header.frame_id = "robot_foot_init";
     Goal.pose.position.x = init_goal_x;
     Goal.pose.position.y = init_goal_y;
     
@@ -78,7 +78,7 @@ int main (int argc, char** argv){
     
     ros::Publisher goal_pub = n.advertise<geometry_msgs::PoseStamped>("/move_base_simple/goal",50);
     goal_pub.publish(Goal);
-    ros::Subscriber sub = n.subscribe("/localization", 1000, callback);  
+    ros::Subscriber sub = n.subscribe("/Odometry", 1000, callback);  
 
     while(ros::ok()){
         ROS_INFO("run decis\n");
