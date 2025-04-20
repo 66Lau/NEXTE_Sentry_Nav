@@ -9,6 +9,8 @@
 
 本文的代码地址：https://github.com/66Lau/NEXTE_Sentry_Nav
 
+感谢[rain](https://github.com/rain11ki?tab=following)在该框架下延伸的3维地图导航实现:https://github.com/rain11ki/NEXTE_Sentry_Nav3D 
+
 3-D 导航与探索实现: https://github.com/66Lau/NEXTE_Sentry_Nav_3D
 
 如果需要仿真环境：https://github.com/66Lau/sentry_sim
