@@ -8,7 +8,7 @@ This repository integrates various open-source algorithms to achieve 2-D localiz
 
 Code repository: [https://github.com/66Lau/NEXTE_Sentry_Nav](https://github.com/66Lau/NEXTE_Sentry_Nav)
 
-3-D navigation extension and implementation from [rain](https://github.com/rain11ki): [https://github.com/rain11ki/NEXTE_Sentry_Nav3D], appreciate it!
+3-D navigation extension and implementation from [rain](https://github.com/rain11ki): [https://github.com/rain11ki/NEXTE_Sentry_Nav3D], appreciate it!  
 3-D navigation and exploration implementation: [https://github.com/66Lau/NEXTE_Sentry_Nav_3D](https://github.com/66Lau/NEXTE_Sentry_Nav_3D)  
 
 
